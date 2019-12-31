@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ObstaclesController
 {
-    public float distanceIncrement = 20f; // todo: make this a scriptable object
+    float distanceIncrement = 20f; // todo: make this a scriptable object
+    float spawnProbability = 0.6f; // todo: make this a scriptable object
 
     float curPosn = 40f;
     CircularObjectPool pool;
+    float[] lanePosns = { 3f, 0f, -3f };
 
     public ObstaclesController(GameObject[] obstacles, Transform parent)
     {
@@ -18,9 +20,7 @@ public class ObstaclesController
     {
         while (curPosn < targetPosn)
         {
-            GameObject o = pool.Next();
-            ResetObject(o);
-            o.transform.position = new Vector3(curPosn, 0f, 0f);
+            SetObstacleLine();
             curPosn += distanceIncrement;
         }
     }
@@ -37,5 +37,18 @@ public class ObstaclesController
     {
         o.transform.rotation = Quaternion.identity;
         o.transform.position = Vector3.zero;
+    }
+
+    private void SetObstacleLine()
+    {
+        foreach (float lanePosn in lanePosns)
+        {
+            if (Random.value < spawnProbability)
+            {
+                GameObject o = pool.Next();
+                ResetObject(o);
+                o.transform.position = new Vector3(curPosn, 0f, lanePosn);
+            }
+        }
     }
 }
