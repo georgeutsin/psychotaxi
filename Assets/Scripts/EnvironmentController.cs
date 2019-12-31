@@ -12,14 +12,18 @@ public class EnvironmentController : MonoBehaviour
 
     public float renderDistance;
 
-    RoadController road;
-    float roadRenderBuffer = 50f;
+    float buffer = 50f;
+
+    RoadController roadCtl;
+    ObstaclesController obstacleCtl;
 
     void Start()
     {
-        road = new RoadController(roadSegment, roadParent.transform);
+        roadCtl = new RoadController(roadSegment, roadParent.transform);
+        obstacleCtl = new ObstaclesController(obstacles, obstacleParent.transform);
 
-        road.RenderUntil(renderDistance + roadRenderBuffer);
+        roadCtl.RenderUntil(renderDistance + buffer);
+        obstacleCtl.RenderUntil(renderDistance + buffer);
     }
 
     void Update()
@@ -27,7 +31,10 @@ public class EnvironmentController : MonoBehaviour
         float curPosn = playerTracker.transform.position.x;
         float targetPosn = curPosn + renderDistance;
 
-        road.FreeUntil(curPosn - roadRenderBuffer);
-        road.RenderUntil(targetPosn + roadRenderBuffer);
+        roadCtl.FreeUntil(curPosn - buffer);
+        roadCtl.RenderUntil(targetPosn + buffer);
+
+        obstacleCtl.FreeUntil(curPosn - buffer);
+        obstacleCtl.RenderUntil(targetPosn + buffer);
     }
 }

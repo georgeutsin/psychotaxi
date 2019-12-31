@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class CircularObjectPool
 {
-    List<GameObject> pool;
-    GameObject obj;
-    Transform parent;
+    protected List<GameObject> pool;
+    protected GameObject obj;
+    protected Transform parent;
 
-    const int defaultSize = 20;
-    int startIdx = 0;
-    int endIdx = 0;
+    protected const int defaultSize = 20;
+    protected int startIdx;
+    protected int endIdx;
 
     public CircularObjectPool(GameObject obj, Transform parent)
         : this(obj, parent, defaultSize) { }
@@ -20,7 +20,7 @@ public class CircularObjectPool
         this.obj = obj;
         this.parent = parent;
 
-        this.pool = new List<GameObject>(poolSize);
+        pool = new List<GameObject>(poolSize);
         for (int i = 0; i < poolSize; i++)
         {
             GameObject o = Object.Instantiate(obj, parent);
@@ -35,7 +35,7 @@ public class CircularObjectPool
         if (endIdx < startIdx + pool.Count) {
             o = pool[endIdx % pool.Count];
         } else {
-            o = Object.Instantiate(obj, parent);
+            o = Object.Instantiate(GetObject(), parent);
             if (endIdx == pool.Count)
             {
                 pool.Add(o);
@@ -61,6 +61,11 @@ public class CircularObjectPool
     {
         pool[startIdx % pool.Count].SetActive(false);
         startIdx += 1;
+    }
+
+    protected virtual GameObject GetObject()
+    {
+        return obj;
     }
 }
 
