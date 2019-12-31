@@ -34,7 +34,6 @@ public class EnvironmentController : MonoBehaviour
         roadCtl.FreeUntil(curPosn - buffer);
         roadCtl.RenderUntil(targetPosn + buffer);
 
-        obstacleCtl.FreeUntil(curPosn - buffer / 2);
         obstacleCtl.RenderUntil(targetPosn + buffer / 2);
     }
 }

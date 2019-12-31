@@ -6,14 +6,15 @@ public class ObstaclesController
 {
     float distanceIncrement = 20f; // todo: make this a scriptable object
     float spawnProbability = 0.6f; // todo: make this a scriptable object
+    float[] lanePosns = { 3f, 0f, -3f }; // todo: make this a scriptable object
 
     float curPosn = 40f;
-    CircularObjectPool pool;
-    float[] lanePosns = { 3f, 0f, -3f };
+    MixedObjectPool pool;
+
 
     public ObstaclesController(GameObject[] obstacles, Transform parent)
     {
-        pool = new CircularMixedObjectPool(obstacles, parent, 20);
+        pool = new MixedObjectPool(obstacles, parent, 20);
     }
 
     public void RenderUntil(float targetPosn)
@@ -25,20 +26,6 @@ public class ObstaclesController
         }
     }
 
-    public void FreeUntil(float targetPosn)
-    {
-        while (pool.First().transform.position.x < targetPosn)
-        {
-            pool.ReturnFirst();
-        }
-    }
-
-    private void ResetObject(GameObject o)
-    {
-        o.transform.rotation = Quaternion.identity;
-        o.transform.position = Vector3.zero;
-    }
-
     private void SetObstacleLine()
     {
         foreach (float lanePosn in lanePosns)
@@ -46,7 +33,6 @@ public class ObstaclesController
             if (Random.value < spawnProbability)
             {
                 GameObject o = pool.Next();
-                ResetObject(o);
                 o.transform.position = new Vector3(curPosn, 0f, lanePosn);
             }
         }
