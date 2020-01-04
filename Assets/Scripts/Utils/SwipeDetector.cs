@@ -11,6 +11,12 @@ public class SwipeDetector : MonoBehaviour
     Vector2 fingerUp;
     public bool detectSwipeOnlyAfterRelease = false;
     bool swipeRegistered = false;
+    PlayerController pc;
+
+    private void Start()
+    {
+        pc = player.GetComponent<PlayerController>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -102,7 +108,7 @@ public class SwipeDetector : MonoBehaviour
     void OnSwipeUp()
     {
         //Debug.Log("Swipe UP");
-        //player.GetComponent<PlayerController>().Jump();
+        pc.Jump();
     }
 
     void OnSwipeDown()
@@ -113,12 +119,12 @@ public class SwipeDetector : MonoBehaviour
     void OnSwipeLeft()
     {
         //Debug.Log("Swipe Left");
-        //player.GetComponent<PlayerController>().Left();
+        pc.Left();
     }
 
     void OnSwipeRight()
     {
         //Debug.Log("Swipe Right");
-        //player.GetComponent<PlayerController>().Right();
+        pc.Right();
     }
 }
