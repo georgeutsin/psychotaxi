@@ -4,33 +4,40 @@ using UnityEngine;
 
 public class ObstaclesController
 {
-    float distanceIncrement = 20f; // todo: make this a scriptable object
-    float spawnProbability = 0.6f; // todo: make this a scriptable object
-    float[] lanePosns = { 3f, 0f, -3f }; // todo: make this a scriptable object
+    LevelDifficultyScriptableObject difficulty;
+    RenderConfigScriptableObject renderConfig;
 
-    float curPosn = 40f;
+    float curPosn = 0.2f;
     MixedObjectPool pool;
 
-
-    public ObstaclesController(GameObject[] obstacles, Transform parent)
+    public ObstaclesController(
+        GameObject[] obstacles,
+        Transform parent,
+        LevelDifficultyScriptableObject difficulty,
+        RenderConfigScriptableObject renderConfig)
     {
         pool = new MixedObjectPool(obstacles, parent, 20);
+        this.difficulty = difficulty;
+        this.renderConfig = renderConfig;
     }
 
     public void RenderUntil(float targetPosn)
     {
+        int level = difficulty.GetLevelFromDistance(curPosn);
+
         while (curPosn < targetPosn)
         {
             SetObstacleLine();
-            curPosn += distanceIncrement;
+            level = difficulty.GetLevelFromDistance(curPosn);
+            curPosn += difficulty.GetObstacleSeparation(level);
         }
     }
 
-    private void SetObstacleLine()
+    void SetObstacleLine()
     {
-        foreach (float lanePosn in lanePosns)
+        foreach (float lanePosn in renderConfig.lanePosns)
         {
-            if (Random.value < spawnProbability)
+            if (Random.value < difficulty.obstacleSpawnProbability)
             {
                 GameObject o = pool.Next();
                 o.transform.position = new Vector3(curPosn, 0f, lanePosn);

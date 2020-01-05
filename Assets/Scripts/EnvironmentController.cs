@@ -10,9 +10,8 @@ public class EnvironmentController : MonoBehaviour
     public GameObject[] obstacles;
     public GameObject obstacleParent;
 
-    public float renderDistance;
-
-    float buffer = 50f;
+    public LevelDifficultyScriptableObject difficulty;
+    public RenderConfigScriptableObject config;
 
     RoadController roadCtl;
     ObstaclesController obstacleCtl;
@@ -20,20 +19,26 @@ public class EnvironmentController : MonoBehaviour
     void Start()
     {
         roadCtl = new RoadController(roadSegment, roadParent.transform);
-        obstacleCtl = new ObstaclesController(obstacles, obstacleParent.transform);
+        obstacleCtl = new ObstaclesController(obstacles, obstacleParent.transform, difficulty, config);
 
-        roadCtl.RenderUntil(renderDistance + buffer);
-        obstacleCtl.RenderUntil(renderDistance + buffer);
+        roadCtl.RenderUntil(config.renderDistance + config.buffer);
+        obstacleCtl.RenderUntil(config.renderDistance + config.buffer);
+
+        //AnimationCurve inverse = CurveUtil.InvertCurve(difficulty.levelLengthCurve);
+        //for (int i = 1; i < 100; i++) {
+        //    Debug.Log(i + " - " + CurveUtil.NormalizedSample(inverse, i / 100f, 1f, 100f, 0f, difficulty.gameLength));
+        //}
     }
 
     void Update()
     {
         float curPosn = playerTracker.transform.position.x;
-        float targetPosn = curPosn + renderDistance;
+        float targetPosn = curPosn + config.renderDistance;
 
-        roadCtl.FreeUntil(curPosn - buffer);
-        roadCtl.RenderUntil(targetPosn + buffer);
+        roadCtl.FreeUntil(curPosn - config.buffer);
+        roadCtl.RenderUntil(targetPosn + config.buffer);
 
-        obstacleCtl.RenderUntil(targetPosn + buffer / 2);
+        obstacleCtl.RenderUntil(targetPosn + config.buffer / 2);
+        //Debug.Log(difficulty.GetLevelFromDistance(curPosn));
     }
 }

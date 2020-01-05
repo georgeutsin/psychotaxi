@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float[] lanePosns = { 3f, 0f, -3f }; // todo: make this a scriptable object
-    float jumpSpeed = 40f; // todo: make this a scriptable object
-    float vehicleHeight = 2.0f; // todo: make this a scriptable object
-    float minSpeed = 40f; // todo: make this a scriptable object
-    float maxSpeed = 80f; // todo: make this a scriptable object
-    float lateralSpeed = 40f; // todo: make this a scriptable object
-    float maxAcceleration = 15f; // todo: make this a scriptable object
+    public RenderConfigScriptableObject renderConfig;
+    public PlayerConfigScriptableObject playerConfig;
+    public LevelDifficultyScriptableObject difficulty;
 
     int posIdx = 1;
     Rigidbody rb;
@@ -18,6 +14,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.mass = playerConfig.mass; // todo: think about mass lifecycle
     }
 
     void Update()
@@ -40,13 +37,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (rb.velocity.x < maxSpeed)
+        int level = difficulty.GetLevelFromDistance(rb.transform.position.x);
+        //Debug.Log(rb.velocity.x);
+        if (rb.velocity.x < difficulty.GetMaxSpeed(level))
         {
-            rb.AddForce(new Vector3(maxAcceleration, 0, 0));
+            rb.AddForce(new Vector3(playerConfig.maxAcceleration, 0, 0));
         }
 
-        float step = lateralSpeed * Time.deltaTime;
-        Vector3 target = new Vector3(transform.position.x, transform.position.y, lanePosns[posIdx]);
+        float step = playerConfig.lateralSpeed * Time.deltaTime;
+        Vector3 target = new Vector3(transform.position.x, transform.position.y, renderConfig.lanePosns[posIdx]);
         transform.position = Vector3.MoveTowards(transform.position, target, step);
     }
 
@@ -57,14 +56,14 @@ public class PlayerController : MonoBehaviour
 
     public void Right()
     {
-        if (posIdx < lanePosns.Length - 1) posIdx += 1;
+        if (posIdx < renderConfig.lanePosns.Length - 1) posIdx += 1;
     }
 
     public void Jump()
     {
-        if (rb.transform.position.y < vehicleHeight) // single jump
+        if (rb.transform.position.y < playerConfig.vehicleHeight) // single jump
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x, playerConfig.jumpSpeed, rb.velocity.z);
         }
     }
 }

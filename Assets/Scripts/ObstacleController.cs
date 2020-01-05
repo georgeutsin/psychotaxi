@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleController : MonoBehaviour
 {
-    float obstacleSpeed = 5f; // todo: make this a scriptable object
+    float obstacleSpeed = 0.025f;
     Rigidbody rb;
 
     Vector3 obsVelocity;

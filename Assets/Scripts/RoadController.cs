@@ -11,7 +11,7 @@ public class RoadController
     public RoadController(GameObject segment, Transform parent)
     {
         Mesh mesh = segment.GetComponent<MeshFilter>().mesh;
-        Vector3 scale = segment.transform.localScale;
+        Vector3 scale = segment.transform.lossyScale;
         Vector3 objectSize = Vector3.Scale(scale, mesh.bounds.size);
         roadLength = objectSize.x * 0.99f;
         pool = new CircularObjectPool(segment, parent, 20);
