@@ -66,6 +66,4 @@ public class LevelDifficultyScriptableObject : ScriptableObject
             (float)level / numberOfLevels,
             maxSpeedMultiplier);
     }
-
-
 }

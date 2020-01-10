@@ -23,11 +23,6 @@ public class EnvironmentController : MonoBehaviour
 
         roadCtl.RenderUntil(config.renderDistance + config.buffer);
         obstacleCtl.RenderUntil(config.renderDistance + config.buffer);
-
-        //AnimationCurve inverse = CurveUtil.InvertCurve(difficulty.levelLengthCurve);
-        //for (int i = 1; i < 100; i++) {
-        //    Debug.Log(i + " - " + CurveUtil.NormalizedSample(inverse, i / 100f, 1f, 100f, 0f, difficulty.gameLength));
-        //}
     }
 
     void Update()
@@ -39,6 +34,5 @@ public class EnvironmentController : MonoBehaviour
         roadCtl.RenderUntil(targetPosn + config.buffer);
 
         obstacleCtl.RenderUntil(targetPosn + config.buffer / 2);
-        //Debug.Log(difficulty.GetLevelFromDistance(curPosn));
     }
 }
