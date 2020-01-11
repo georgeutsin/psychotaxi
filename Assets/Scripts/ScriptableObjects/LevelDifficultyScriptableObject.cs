@@ -6,18 +6,18 @@ public class LevelDifficultyScriptableObject : ScriptableObject
 {
     public float gameLength = 5000f;
     public int numberOfLevels = 100;
-    public float minLevelTime = 30f; // in seconds
+    public float minLevelTime = 15f; // in seconds
     public float maxLevelTime = 1200f; // in seconds
     public AnimationCurve levelLengthCurve;
 
-    public float baseSpeed = 20f;
-    public float maxSpeedMultiplier = 5f;
+    public float baseSpeed = 0.1f;
+    public float maxSpeedMultiplier = 10f;
     public AnimationCurve levelSpeedMuliplierCurve;
 
     public float maxObstacleWeight = 5f;
     public AnimationCurve obstacleWeightMultiplierCurve;
 
-    public float obstacleSeparation = .1f;
+    public float obstacleSeparation = 0.1f;
 
     public float obstacleSpawnProbability = 0.6f; // todo make this a curve
 

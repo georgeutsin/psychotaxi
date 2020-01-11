@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DynamicRoadObject : MonoBehaviour
 {
-    float obstacleSpeed = 0.025f;
+    public static float obstacleSpeed = 0.025f;
     Rigidbody rb;
 
     Vector3 obsVelocity;
