@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Gas : DynamicRoadObject
 {
-    // Start is called before the first frame update
     override public void Start()
     {
         base.Start();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        transform.Rotate(Vector3.up * (rotationSpeed * Time.deltaTime));
     }
 }

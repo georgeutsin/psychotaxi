@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoadController
 {
     float roadLength;
-    float endPosn = -50f;
+    float endPosn = -2f;
     CircularObjectPool pool;
 
     public RoadController(GameObject segment, Transform parent)

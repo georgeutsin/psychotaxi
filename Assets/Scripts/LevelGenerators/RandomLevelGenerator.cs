@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class RandomLevelGenerator : LevelGenerator
 {
-    public RandomLevelGenerator(
-        GameObject[] obstacles,
-        Transform parent,
-        LevelDifficultyScriptableObject difficulty,
-        RenderConfigScriptableObject renderConfig) 
-        : base(obstacles, parent, difficulty, renderConfig)
+    GameObject o;
+    public RandomLevelGenerator(LevelGenerator source) : base(source)
     {
 
     }
@@ -30,10 +26,25 @@ public class RandomLevelGenerator : LevelGenerator
     {
         foreach (float lanePosn in renderConfig.lanePosns)
         {
+            if (Random.value < difficulty.gasSpawnProbability)
+            {
+                o = gasPool.Next();
+                o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
+                continue;
+            }
+
             if (Random.value < difficulty.obstacleSpawnProbability)
             {
-                GameObject o = pool.Next();
+                o = obstaclePool.Next();
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
+                continue;
+            }
+
+            if (Random.value < difficulty.coinSpawnProbability)
+            {
+                o = coinPool.Next();
+                o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
+                continue;
             }
         }
     }

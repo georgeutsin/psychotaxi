@@ -20,6 +20,9 @@ public class LevelDifficultyScriptableObject : ScriptableObject
     public float obstacleSeparation = 0.1f;
 
     public float obstacleSpawnProbability = 0.6f; // todo make this a curve
+    public float coinSpawnProbability = 0.3f; // todo make this a curve
+    public float gasSpawnProbability = 0.05f; // todo tweak to make this fun
+    public float gasTimeAdded = 15f;
 
     public float[] levelDists;
     public float[] cumLevelDists;

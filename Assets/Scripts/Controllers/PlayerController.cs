@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public RenderConfigScriptableObject renderConfig;
     public PlayerConfigScriptableObject playerConfig;
     public LevelDifficultyScriptableObject difficulty;
+    public GameStateSriptableObject gameState;
 
     int posIdx = 1;
     Rigidbody rb;
@@ -15,6 +16,9 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.mass = playerConfig.mass; // todo: think about mass lifecycle
+
+        gameState.timeLeft = 30f; // todo put this in a game controller/reset function?
+        gameState.coinCount = 0;
     }
 
     void Update()
@@ -38,7 +42,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         int level = difficulty.GetLevelFromDistance(rb.transform.position.x);
-        //Debug.Log(rb.velocity.x);
+
         if (rb.velocity.x < difficulty.GetMaxSpeed(level))
         {
             rb.AddForce(new Vector3(playerConfig.maxAcceleration, 0, 0));
@@ -47,6 +51,8 @@ public class PlayerController : MonoBehaviour
         float step = playerConfig.lateralSpeed * Time.deltaTime;
         Vector3 target = new Vector3(transform.position.x, transform.position.y, renderConfig.lanePosns[posIdx]);
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+
+        gameState.timeLeft -= Time.deltaTime;
     }
 
     public void Left()
@@ -64,6 +70,23 @@ public class PlayerController : MonoBehaviour
         if (rb.transform.position.y < playerConfig.vehicleHeight) // single jump
         {
             rb.velocity = new Vector3(rb.velocity.x, playerConfig.jumpSpeed, rb.velocity.z);
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Coin")
+        {
+            gameState.coinCount += 1;
+            other.gameObject.SetActive(false);
+            return;
+        }
+
+        if (other.tag == "Gas")
+        {
+            gameState.timeLeft = gameState.timeLeft + difficulty.gasTimeAdded > gameState.maxTime ? gameState.maxTime : gameState.timeLeft + difficulty.gasTimeAdded;
+            other.gameObject.SetActive(false);
+            return;
         }
     }
 }

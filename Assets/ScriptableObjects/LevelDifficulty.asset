@@ -40,7 +40,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  baseSpeed: 0.075
+  baseSpeed: 0.1
   maxSpeedMultiplier: 10
   levelSpeedMuliplierCurve:
     serializedVersion: 2
@@ -111,6 +111,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   obstacleSeparation: 0.1
   obstacleSpawnProbability: 0.6
+  coinSpawnProbability: 0.3
+  gasSpawnProbability: 0.04
+  gasTimeAdded: 10
   levelDists:
   - 0
   - 1.6671075

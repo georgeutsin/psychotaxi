@@ -5,12 +5,9 @@ using UnityEngine;
 public class NoJumpLevelGenerator : LevelGenerator
 {
     int gapIdx;
-    public NoJumpLevelGenerator(
-        GameObject[] obstacles,
-        Transform parent,
-        LevelDifficultyScriptableObject difficulty,
-        RenderConfigScriptableObject renderConfig)
-        : base(obstacles, parent, difficulty, renderConfig)
+    GameObject o;
+
+    public NoJumpLevelGenerator(LevelGenerator source) : base(source)
     {
         gapIdx = Random.Range(0, renderConfig.lanePosns.Length);
     }
@@ -31,28 +28,41 @@ public class NoJumpLevelGenerator : LevelGenerator
     {
         for (int i = 0; i < renderConfig.lanePosns.Length; i++)
         {
+            float lanePosn = renderConfig.lanePosns[i];
+
             if (i == gapIdx)
             {
+                if (Random.value < difficulty.gasSpawnProbability)
+                {
+                    o = gasPool.Next();
+                    o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
+                    continue;
+                }
+
+                o = coinPool.Next();
+                o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }
 
-            float lanePosn = renderConfig.lanePosns[i];
-            GameObject o = pool.Next();
+            o = obstaclePool.Next();
             o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
         }
 
         if (gapIdx == 0)
         {
             gapIdx += 1;
+            //gapIdx += Random.Range(0, 2);
             return;
         }
 
         if (gapIdx == renderConfig.lanePosns.Length-1)
         {
             gapIdx -= 1;
+            //gapIdx -= Random.Range(0, 2);
             return;
         }
 
         gapIdx += Random.Range(0, 2) * 2 - 1;
+        //gapIdx += Random.Range(0, 3) - 1;
     }
 }

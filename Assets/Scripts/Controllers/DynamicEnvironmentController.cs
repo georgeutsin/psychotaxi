@@ -9,6 +9,9 @@ public class DynamicEnvironmentController : MonoBehaviour
     public GameObject playerTracker;
     public GameObject[] obstacles;
     public GameObject obstacleParent;
+    public GameObject coin;
+    public GameObject gas;
+    public GameObject itemsParent;
 
     public LevelDifficultyScriptableObject difficulty;
     public RenderConfigScriptableObject config;
@@ -30,8 +33,17 @@ public class DynamicEnvironmentController : MonoBehaviour
     {
         levelOffset = 0f;
         curPosn_GC = 0f;
-        levelGenerators.Add(new RandomLevelGenerator(obstacles, obstacleParent.transform, difficulty, config));
-        levelGenerators.Add(new NoJumpLevelGenerator(obstacles, obstacleParent.transform, difficulty, config));
+        LevelGenerator source = new LevelGenerator(
+            obstacles,
+            obstacleParent.transform, 
+            coin, 
+            gas, 
+            itemsParent.transform, 
+            difficulty, 
+            config);
+
+        levelGenerators.Add(new RandomLevelGenerator(source));
+        levelGenerators.Add(new NoJumpLevelGenerator(source));
 
         PickLevelGenerator(initialLevelDelayLength);
         curGenerator.RenderUntil(0, config.renderDistance + config.buffer);

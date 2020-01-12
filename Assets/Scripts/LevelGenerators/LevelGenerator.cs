@@ -2,23 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class LevelGenerator
+public class LevelGenerator
 {
     protected LevelDifficultyScriptableObject difficulty;
     protected RenderConfigScriptableObject renderConfig;
 
     protected float curPosn_LC;
-    protected MixedObjectPool pool;
+    protected MixedObjectPool obstaclePool;
+    protected ObjectPool coinPool;
+    protected ObjectPool gasPool;
 
     public LevelGenerator(
         GameObject[] obstacles,
-        Transform parent,
+        Transform obstaclesParent,
+        GameObject coin,
+        GameObject gas,
+        Transform itemsParent,
         LevelDifficultyScriptableObject difficulty,
         RenderConfigScriptableObject renderConfig)
     {
-        pool = new MixedObjectPool(obstacles, parent, 20);
+        obstaclePool = new MixedObjectPool(obstacles, obstaclesParent, 20);
+        coinPool = new ObjectPool(coin, itemsParent, 20);
+        gasPool = new ObjectPool(gas, itemsParent, 5);
         this.difficulty = difficulty;
         this.renderConfig = renderConfig;
+        curPosn_LC = 0f;
+    }
+
+    public LevelGenerator(LevelGenerator source)
+    {
+        obstaclePool = source.obstaclePool;
+        coinPool = source.coinPool;
+        gasPool = source.gasPool;
+        difficulty = source.difficulty;
+        renderConfig = source.renderConfig;
     }
 
     public void Init(float curPosn_LC = 0.2f)
@@ -26,6 +43,9 @@ abstract public class LevelGenerator
         this.curPosn_LC = curPosn_LC;
     }
 
-    abstract public void RenderUntil(float levelOffset, float targetPosn_GC);
+    virtual public void RenderUntil(float levelOffset, float targetPosn_GC)
+    {
+
+    }
 
 }
