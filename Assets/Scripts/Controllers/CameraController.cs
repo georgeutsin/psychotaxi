@@ -2,6 +2,7 @@
 
 public class CameraController : MonoBehaviour
 {
+    public GameObject editorOnly;
     public GameObject playerTracker;
     public RenderConfigScriptableObject config;
     public LevelDifficultyScriptableObject difficulty;
@@ -20,6 +21,8 @@ public class CameraController : MonoBehaviour
         gameViewPosition = transform.position;
         cam = GetComponent<Camera>();
         player = playerTracker.GetComponent<PlayerTracker>();
+
+        editorOnly.SetActive(false);
     }
 
     void LateUpdate()

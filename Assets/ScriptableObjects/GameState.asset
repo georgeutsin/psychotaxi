@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptsDefinition::GameStateSriptableObject
   coinCount: 0
   timeLeft: 30
+  maxTime: 30

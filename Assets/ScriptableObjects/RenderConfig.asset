@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6566fe2567a146c7a658fe4cb2afc98, type: 3}
   m_Name: RenderConfig
   m_EditorClassIdentifier: 
-  renderDistance: 0.08
+  renderDistance: 1.25
   buffer: 0.25
   lanePosns:
   - 0.015
