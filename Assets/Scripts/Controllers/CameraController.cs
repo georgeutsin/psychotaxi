@@ -23,6 +23,7 @@ public class CameraController : MonoBehaviour
         player = playerTracker.GetComponent<PlayerTracker>();
 
         editorOnly.SetActive(false);
+        Application.targetFrameRate = 60;
     }
 
     void LateUpdate()

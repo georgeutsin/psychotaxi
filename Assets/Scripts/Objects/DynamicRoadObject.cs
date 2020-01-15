@@ -6,6 +6,7 @@ public class DynamicRoadObject : MonoBehaviour
 {
     public static float obstacleSpeed = 0.025f;
     public static float rotationSpeed = 90f;
+
     protected Rigidbody rb;
 
     Vector3 obsVelocity;
@@ -23,10 +24,11 @@ public class DynamicRoadObject : MonoBehaviour
         {
             gameObject.SetActive(false);
             ResetObject();
+            return;
         }
     }
 
-    void ResetObject()
+    protected void ResetObject()
     {
         transform.rotation = Quaternion.identity;
         transform.position = Vector3.zero;

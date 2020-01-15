@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class Obstacle : DynamicRoadObject
 {
-    // Start is called before the first frame update
+    ExplosionPool explosionPool;
+
     override public void Start()
     {
         base.Start();
+        GameObject explosionPoolGameObject = GameObject.FindWithTag("ExplosionPool"); // WARNING: SLOW!!
+        explosionPool = explosionPoolGameObject.GetComponent<ExplosionPool>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
+
+    override public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "GameBounds")
+        {
+            gameObject.SetActive(false);
+            ResetObject();
+            return;
+        }
+
+        if (other.tag == "ExplosiveBounds")
+        {
+            gameObject.SetActive(false);
+            if (explosionPool != null)
+            {
+                ParticleSystem ps = explosionPool.Next();
+                ps.transform.position = transform.position;
+                ps.Play();
+            }
+
+            ResetObject();
+        }
+    }
+
 }

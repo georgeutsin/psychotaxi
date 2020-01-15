@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 6637629590389813300}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: GameBounds
+  m_TagString: ExplosiveBounds
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1105,6 +1105,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6637629588897814596}
     m_Modifications:
+    - target: {fileID: -5178661895559278292, guid: c27e25f5ede644c5eae40c8c0a2673e7,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8529833868307577305, guid: f3b22cb03f9da428e86e4b3149037aca,
+        type: 3}
     - target: {fileID: -4216859302048453862, guid: c27e25f5ede644c5eae40c8c0a2673e7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1118,7 +1124,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c27e25f5ede644c5eae40c8c0a2673e7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.23923
+      value: 0.2423
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c27e25f5ede644c5eae40c8c0a2673e7,
         type: 3}
@@ -1168,7 +1174,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: c27e25f5ede644c5eae40c8c0a2673e7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: -26.079128
+      value: -26.785872
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: c27e25f5ede644c5eae40c8c0a2673e7,
         type: 3}
