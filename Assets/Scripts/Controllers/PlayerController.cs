@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public RenderConfigScriptableObject renderConfig;
     public PlayerConfigScriptableObject playerConfig;
     public LevelDifficultyScriptableObject difficulty;
-    public GameStateSriptableObject gameState;
+    public GameStateScriptableObject gameState;
 
     int posIdx = 1;
     Rigidbody rb;

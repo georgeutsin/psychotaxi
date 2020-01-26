@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour
     public GameObject playerTracker;
     public RenderConfigScriptableObject config;
     public LevelDifficultyScriptableObject difficulty;
+    public GameObject[] Menus;
+    public GameObject MainMenu;
 
     Vector3 gameViewPosition;
     Camera cam;
@@ -24,6 +26,12 @@ public class CameraController : MonoBehaviour
 
         editorOnly.SetActive(false);
         Application.targetFrameRate = 60;
+
+        foreach (GameObject menu in Menus)
+        {
+            menu.SetActive(false);
+        }
+        MainMenu.SetActive(true);
     }
 
     void LateUpdate()
