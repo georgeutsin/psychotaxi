@@ -6,6 +6,7 @@ public class LevelGenerator
 {
     protected LevelDifficultyScriptableObject difficulty;
     protected RenderConfigScriptableObject renderConfig;
+    protected GameStateScriptableObject gameState;
 
     protected float curPosn_LC;
     protected MixedObjectPool obstaclePool;
@@ -19,13 +20,15 @@ public class LevelGenerator
         GameObject gas,
         Transform itemsParent,
         LevelDifficultyScriptableObject difficulty,
-        RenderConfigScriptableObject renderConfig)
+        RenderConfigScriptableObject renderConfig,
+        GameStateScriptableObject gameState)
     {
         obstaclePool = new MixedObjectPool(obstacles, obstaclesParent, 20);
         coinPool = new ObjectPool(coin, itemsParent, 20);
         gasPool = new ObjectPool(gas, itemsParent, 5);
         this.difficulty = difficulty;
         this.renderConfig = renderConfig;
+        this.gameState = gameState;
         curPosn_LC = 0f;
     }
 
@@ -36,6 +39,7 @@ public class LevelGenerator
         gasPool = source.gasPool;
         difficulty = source.difficulty;
         renderConfig = source.renderConfig;
+        gameState = source.gameState;
     }
 
     public void Init(float curPosn_LC = 0.2f)
@@ -48,4 +52,8 @@ public class LevelGenerator
 
     }
 
+    protected void UpdateGasLocation()
+    {
+        GasLocationUtil.SetNextGasLocation(gameState, difficulty);
+    }
 }

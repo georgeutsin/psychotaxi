@@ -26,9 +26,10 @@ public class RandomLevelGenerator : LevelGenerator
     {
         foreach (float lanePosn in renderConfig.lanePosns)
         {
-            if (Random.value < difficulty.gasSpawnProbability)
+            if (curPosn_LC > gameState.nextGasLocation)
             {
                 o = gasPool.Next();
+                UpdateGasLocation();
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }

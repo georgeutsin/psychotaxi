@@ -15,6 +15,7 @@ public class DynamicEnvironmentController : MonoBehaviour
 
     public LevelDifficultyScriptableObject difficulty;
     public RenderConfigScriptableObject config;
+    public GameStateScriptableObject gameState;
 
     List<LevelGenerator> levelGenerators = new List<LevelGenerator>();
     LevelGenerator curGenerator;
@@ -33,6 +34,10 @@ public class DynamicEnvironmentController : MonoBehaviour
     {
         levelOffset = 0f;
         curPosn_GC = 0f;
+        gameState.nextGasLocation = 0f;
+        gameState.gasLevel = 1;
+        GasLocationUtil.SetNextGasLocation(gameState, difficulty);
+
         LevelGenerator source = new LevelGenerator(
             obstacles,
             obstacleParent.transform, 
@@ -40,7 +45,8 @@ public class DynamicEnvironmentController : MonoBehaviour
             gas, 
             itemsParent.transform, 
             difficulty, 
-            config);
+            config,
+            gameState);
 
         levelGenerators.Add(new RandomLevelGenerator(source));
         levelGenerators.Add(new NoJumpLevelGenerator(source));

@@ -6,4 +6,6 @@ public class GameStateScriptableObject : ScriptableObject
     public int coinCount;
     public float timeLeft = 30f;
     public float maxTime = 30f;
+    public float nextGasLocation;
+    public int gasLevel = 1;
 }
