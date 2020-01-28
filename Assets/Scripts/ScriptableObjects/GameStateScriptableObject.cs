@@ -8,4 +8,12 @@ public class GameStateScriptableObject : ScriptableObject
     public float maxTime = 30f;
     public float nextGasLocation;
     public int gasLevel = 1;
+    public bool isPaused = true;
+
+    void OnEnable()
+    {
+        isPaused = true;
+        coinCount = 0;
+        gasLevel = 1;
+    }
 }

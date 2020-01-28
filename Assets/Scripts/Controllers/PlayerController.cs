@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (gameState.isPaused)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown("up"))
         {
             Jump();
@@ -41,6 +46,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (gameState.isPaused)
+        {
+            return;
+        }
+
         int level = difficulty.GetLevelFromDistance(rb.transform.position.x);
 
         if (rb.velocity.x < difficulty.GetMaxSpeed(level))

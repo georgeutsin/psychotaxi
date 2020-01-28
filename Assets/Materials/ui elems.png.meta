@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: 66c85bd98c5e542fa8b9efde051c6fef
+guid: f085208f8bbe04e4eb1f65eeb0a89afd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7025651857757288288
-    second: Artboard 1_0
+      213: -3012144784638578562
+    second: ui elems_0
   - first:
-      213: -2825619868766915184
-    second: Artboard 1_1
+      213: -6269114456891016506
+    second: ui elems_1
   - first:
-      213: 4183446224265781417
-    second: Artboard 1_2
+      213: -5778330446128627456
+    second: ui elems_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -52,10 +52,10 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.2360628, y: 0.08928803}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 274, w: 409}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -119,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Artboard 1_0
+      name: ui elems_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 233
-        height: 101
+        x: 30
+        y: 271
+        width: 188
+        height: 224
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e25d9be17dea44274974e08b2869a951
-      internalID: 7025651857757288288
+      spriteID: 1d908f9f288614d3ca67808c22bf21fc
+      internalID: -3012144784638578562
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Artboard 1_1
+      name: ui elems_1
       rect:
         serializedVersion: 2
-        x: 237
-        y: 27
-        width: 72
-        height: 68
+        x: 21
+        y: 14
+        width: 156
+        height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,29 +154,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ff0348899a3b41ada9bbbf30661bd16
-      internalID: -2825619868766915184
+      spriteID: 657542f90cd6b4cc588f6f173998ac45
+      internalID: -6269114456891016506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Artboard 1_2
+      name: ui elems_2
       rect:
         serializedVersion: 2
-        x: 5
-        y: 132
-        width: 78
-        height: 80
+        x: 215
+        y: 14
+        width: 151
+        height: 171
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 2, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a416ae7a60ebb467fb19731dd25b0be5
-      internalID: 4183446224265781417
+      spriteID: 5585d4fdafe1d4f2fb2cf190ccdcf82d
+      internalID: -5778330446128627456
       vertices: []
       indices: 
       edges: []
@@ -184,7 +184,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 1976a58be294d476f9d4b2d79494c309
     internalID: 0
     vertices: []
     indices: 

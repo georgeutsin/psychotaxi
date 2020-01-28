@@ -6,6 +6,9 @@ public class DynamicRoadObject : MonoBehaviour
 {
     public static float obstacleSpeed = 0.025f;
     public static float rotationSpeed = 90f;
+    public GameStateScriptableObject gs;
+
+    bool pauseState = true;
 
     protected Rigidbody rb;
 
@@ -16,6 +19,27 @@ public class DynamicRoadObject : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         obsVelocity = new Vector3(obstacleSpeed, 0f, 0f);
         rb.velocity = obsVelocity;
+    }
+
+    public virtual void Update()
+    {
+        if (gs.isPaused)
+        {
+            if (pauseState)
+            {
+                obsVelocity = rb.velocity;
+                rb.velocity = Vector3.zero;
+                pauseState = false;
+            }
+
+        } else 
+        {
+            if (!pauseState)
+            {
+                rb.velocity = obsVelocity;
+                pauseState = true;
+            }
+        }
     }
 
     public virtual void OnTriggerEnter(Collider other)

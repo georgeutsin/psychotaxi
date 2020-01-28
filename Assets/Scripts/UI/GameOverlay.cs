@@ -8,6 +8,7 @@ public class GameOverlay : MonoBehaviour
     public GameStateScriptableObject gs;
     public Slider gasSlider;
     public Text score;
+    public Text coins;
     public GameObject player;
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class GameOverlay : MonoBehaviour
     void Update()
     {
         gasSlider.value = gs.timeLeft / gs.maxTime;
-        score.text = string.Format("Score: {0}", player.transform.position.x);
+        score.text = string.Format("Score: {0}", (int) (player.transform.position.x * 100));
+        coins.text = string.Format("{0}", gs.coinCount);
     }
 }

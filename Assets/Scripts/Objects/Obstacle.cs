@@ -13,9 +13,9 @@ public class Obstacle : DynamicRoadObject
         explosionPool = explosionPoolGameObject.GetComponent<ExplosionPool>();
     }
 
-    void Update()
+    override public void Update()
     {
-        
+        base.Update();
     }
 
     override public void OnTriggerEnter(Collider other)
