@@ -12,19 +12,34 @@ public class PlayerController : MonoBehaviour
     int posIdx = 1;
     Rigidbody rb;
 
+    public void NewGame()
+    {
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        posIdx = 1;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.mass = playerConfig.mass; // todo: think about mass lifecycle
 
-        gameState.timeLeft = 30f; // todo put this in a game controller/reset function?
-        gameState.coinCount = 0;
+        NewGame();
     }
 
     void Update()
     {
         if (gameState.isPaused)
         {
+            return;
+        }
+
+        if (gameState.timeLeft <= 0)
+        {
+            EventManager.TriggerEvent("GameOver");
+            gameState.isPaused = true;
             return;
         }
 
@@ -48,6 +63,13 @@ public class PlayerController : MonoBehaviour
     {
         if (gameState.isPaused)
         {
+            return;
+        }
+
+        if (gameState.timeLeft <= 0)
+        {
+            EventManager.TriggerEvent("GameOver");
+            gameState.isPaused = true;
             return;
         }
 

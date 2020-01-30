@@ -63,6 +63,16 @@ public class CircularObjectPool
         startIdx += 1;
     }
 
+    public void Reset()
+    {
+        for (int i = 0; i < pool.Count; i++)
+        {
+            pool[i].SetActive(false);
+        }
+        startIdx = 0;
+        endIdx = 0;
+    }
+
     protected virtual GameObject GetObject()
     {
         return obj;

@@ -30,14 +30,23 @@ public class DynamicEnvironmentController : MonoBehaviour
     float levelSegmentBoundary;
     float initialLevelDelayLength = 0.2f;
 
-    void Start()
+    public void NewGame()
     {
         levelOffset = 0f;
         curPosn_GC = 0f;
+        levelSegmentBoundary = 0f;
         gameState.nextGasLocation = 0f;
         gameState.gasLevel = 1;
         GasLocationUtil.SetNextGasLocation(gameState, difficulty);
 
+        PickLevelGenerator(initialLevelDelayLength);
+        curGenerator.Reset();
+        curGenerator.RenderUntil(0, config.renderDistance + config.buffer);
+        levelSegmentBoundary += levelSegmentLength;
+    }
+
+    void Start()
+    {
         LevelGenerator source = new LevelGenerator(
             obstacles,
             obstacleParent.transform, 
@@ -50,10 +59,6 @@ public class DynamicEnvironmentController : MonoBehaviour
 
         levelGenerators.Add(new RandomLevelGenerator(source));
         levelGenerators.Add(new NoJumpLevelGenerator(source));
-
-        PickLevelGenerator(initialLevelDelayLength);
-        curGenerator.RenderUntil(0, config.renderDistance + config.buffer);
-        levelSegmentBoundary += levelSegmentLength;
     }
 
     void Update()

@@ -30,4 +30,10 @@ public class SceneryController
             pool.ReturnFirst();
         }
     }
+
+    public void Reset()
+    {
+        endPosn = -2f;
+        pool.Reset();
+    }
 }

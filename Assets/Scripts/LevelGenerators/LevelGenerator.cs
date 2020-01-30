@@ -47,6 +47,13 @@ public class LevelGenerator
         this.curPosn_LC = curPosn_LC;
     }
 
+    public void Reset()
+    {
+        coinPool.ResetPool();
+        gasPool.ResetPool();
+        obstaclePool.ResetPool();
+    }
+
     virtual public void RenderUntil(float levelOffset, float targetPosn_GC)
     {
 

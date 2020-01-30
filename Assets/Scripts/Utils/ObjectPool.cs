@@ -48,6 +48,14 @@ public class ObjectPool
 		o.SetActive(false);
 	}
 
+    public void ResetPool()
+    {
+        for (int i = 0; i < pool.Count; i++)
+        {
+            pool[i].SetActive(false);
+        }
+    }
+
     protected virtual GameObject GetObject()
     {
         return obj;

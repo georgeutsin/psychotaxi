@@ -8,11 +8,11 @@ public class DynamicRoadObject : MonoBehaviour
     public static float rotationSpeed = 90f;
     public GameStateScriptableObject gs;
 
-    bool pauseState = true;
+    public bool pauseState = true;
 
     protected Rigidbody rb;
 
-    Vector3 obsVelocity;
+    public Vector3 obsVelocity;
 
     public virtual void Start()
     {
@@ -47,16 +47,19 @@ public class DynamicRoadObject : MonoBehaviour
         if (other.tag == "GameBounds") 
         {
             gameObject.SetActive(false);
-            ResetObject();
             return;
         }
     }
 
-    protected void ResetObject()
+    public static void ResetObject(GameObject o)
     {
-        transform.rotation = Quaternion.identity;
-        transform.position = Vector3.zero;
-        rb.velocity = obsVelocity;
+        o.transform.rotation = Quaternion.identity;
+        o.transform.position = Vector3.zero;
+        Rigidbody rb = o.GetComponent<Rigidbody>();
+        rb.velocity = new Vector3(obstacleSpeed, 0f, 0f);
         rb.angularVelocity = Vector3.zero;
+        rb.Sleep();
+        DynamicRoadObject obj = o.GetComponent<DynamicRoadObject>();
+        obj.obsVelocity = new Vector3(obstacleSpeed, 0f, 0f);
     }
 }

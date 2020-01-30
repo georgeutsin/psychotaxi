@@ -34,4 +34,10 @@ public class RoadController
             pool.ReturnFirst();
         }
     }
+
+    public void Reset()
+    {
+        endPosn = -2f;
+        pool.Reset();
+    }
 }

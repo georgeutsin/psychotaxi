@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayPressed()
     {
+        EventManager.TriggerEvent("NewGame");
         gs.isPaused = false;
     }
 }

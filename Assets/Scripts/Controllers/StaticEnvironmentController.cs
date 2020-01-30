@@ -16,10 +16,17 @@ public class StaticEnvironmentController : MonoBehaviour
     RoadController roadCtl;
     SceneryController sceneCtl;
 
+    public void NewGame()
+    {
+        roadCtl.Reset();
+        sceneCtl.Reset();
+    }
+
     void Start()
     {
         roadCtl = new RoadController(roadSegment, roadParent.transform);
         sceneCtl = new SceneryController(citySegment, sceneryParent.transform);
+        NewGame();
     }
 
     void Update()

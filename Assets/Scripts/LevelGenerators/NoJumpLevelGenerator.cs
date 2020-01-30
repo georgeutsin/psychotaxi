@@ -46,6 +46,7 @@ public class NoJumpLevelGenerator : LevelGenerator
             }
 
             o = obstaclePool.Next();
+            DynamicRoadObject.ResetObject(o);
             o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
         }
 
