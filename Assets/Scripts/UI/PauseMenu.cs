@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
     public GameStateScriptableObject gameState;
     // Start is called before the first frame update
@@ -17,9 +17,15 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    public void PlayPressed()
+    public void PauseGame()
     {
-        EventManager.TriggerEvent("NewGame");
+        gameState.isPaused = true;
+        EventManager.TriggerEvent("GamePaused");
+    }
+
+    public void ResumeGame()
+    {
         gameState.isPaused = false;
+        EventManager.TriggerEvent("GameResumed");
     }
 }

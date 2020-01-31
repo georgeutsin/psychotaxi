@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class GameOverlay : MonoBehaviour
 {
-    public GameStateScriptableObject gs;
+    public GameStateScriptableObject gameState;
     public Slider gasSlider;
     public Text score;
     public Text coins;
@@ -21,8 +21,8 @@ public class GameOverlay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gasSlider.value = gs.timeLeft / gs.maxTime;
+        gasSlider.value = gameState.timeLeft / gameState.maxTime;
         score.text = string.Format("Score: {0}", (int) (player.transform.position.x * 100));
-        coins.text = string.Format("{0}", gs.coinCount);
+        coins.text = string.Format("{0}", gameState.coinCount);
     }
 }

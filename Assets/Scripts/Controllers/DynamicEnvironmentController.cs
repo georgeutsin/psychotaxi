@@ -45,6 +45,11 @@ public class DynamicEnvironmentController : MonoBehaviour
         levelSegmentBoundary += levelSegmentLength;
     }
 
+    public void Reset()
+    {
+        curGenerator.Reset();
+    }
+
     void Start()
     {
         LevelGenerator source = new LevelGenerator(

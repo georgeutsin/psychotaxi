@@ -30,6 +30,7 @@ public class RandomLevelGenerator : LevelGenerator
             {
                 o = gasPool.Next();
                 UpdateGasLocation();
+                DynamicRoadObject.ResetObject(o);
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }
@@ -45,6 +46,7 @@ public class RandomLevelGenerator : LevelGenerator
             if (Random.value < difficulty.coinSpawnProbability)
             {
                 o = coinPool.Next();
+                DynamicRoadObject.ResetObject(o);
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }

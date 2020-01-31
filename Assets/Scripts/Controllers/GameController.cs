@@ -13,10 +13,8 @@ public class GameController : MonoBehaviour
     public DynamicEnvironmentController dynamicEnv;
     public StaticEnvironmentController staticEnv;
 
-    private UnityAction gameOverEventListener;
-    private UnityAction newGameListener;
-
-
+    UnityAction gameOverEventListener;
+    UnityAction newGameListener;
 
     // Start is called before the first frame update
     void Start()
@@ -48,5 +46,12 @@ public class GameController : MonoBehaviour
         player.NewGame();
         dynamicEnv.NewGame();
         staticEnv.NewGame();
+    }
+
+    public void MenuScreenTriggered()
+    {
+        player.NewGame();
+        staticEnv.NewGame();
+        dynamicEnv.Reset();
     }
 }

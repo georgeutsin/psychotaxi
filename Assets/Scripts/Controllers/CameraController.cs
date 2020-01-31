@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     public GameObject[] Menus;
     public GameObject MainMenu;
 
+    public GameObject gamePosn;
+
     Vector3 gameViewPosition;
     Camera cam;
     PlayerTracker player;

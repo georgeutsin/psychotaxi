@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,8 +10,12 @@ public class PlayerController : MonoBehaviour
     public LevelDifficultyScriptableObject difficulty;
     public GameStateScriptableObject gameState;
 
+    UnityAction pauseListener;
+    UnityAction resumeListener;
+    Vector3 savedVelocity;
     int posIdx = 1;
     Rigidbody rb;
+
 
     public void NewGame()
     {
@@ -27,6 +32,11 @@ public class PlayerController : MonoBehaviour
         rb.mass = playerConfig.mass; // todo: think about mass lifecycle
 
         NewGame();
+        pauseListener = new UnityAction(PauseEvent);
+        EventManager.StartListening("GamePaused", pauseListener);
+
+        resumeListener = new UnityAction(ResumeEvent);
+        EventManager.StartListening("GameResumed", resumeListener);
     }
 
     void Update()
@@ -120,5 +130,16 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             return;
         }
+    }
+
+    void PauseEvent()
+    {
+        savedVelocity = rb.velocity;
+        rb.velocity = Vector3.zero;
+    }
+
+    void ResumeEvent()
+    {
+        rb.velocity = savedVelocity;
     }
 }
