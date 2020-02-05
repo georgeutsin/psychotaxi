@@ -59,6 +59,11 @@ public class LevelDifficultyScriptableObject : ScriptableObject
         return curLevel;
     }
 
+    public void Reset()
+    {
+        curLevel = 0;
+    }
+
     public float GetObstacleSeparation(int level)
     {
         return obstacleSeparation;

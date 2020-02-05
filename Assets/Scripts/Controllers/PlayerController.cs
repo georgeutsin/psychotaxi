@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             EventManager.TriggerEvent("GameOver");
             gameState.isPaused = true;
+            rb.AddForce(new Vector3(-10f * playerConfig.maxAcceleration, 0, 0));
             return;
         }
 

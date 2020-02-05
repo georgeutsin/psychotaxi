@@ -22,4 +22,9 @@ public class MainMenu : MonoBehaviour
         EventManager.TriggerEvent("NewGame");
         gameState.isPaused = false;
     }
+
+    public void ShopPressed()
+    {
+        EventManager.TriggerEvent("ShopPressed");
+    }
 }

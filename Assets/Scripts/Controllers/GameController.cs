@@ -10,11 +10,14 @@ public class GameController : MonoBehaviour
     public GameObject GameOverlayScreen;
     public GameStateScriptableObject gameState;
     public PlayerController player;
+    public CameraController mainCamera;
     public DynamicEnvironmentController dynamicEnv;
     public StaticEnvironmentController staticEnv;
+    public LevelDifficultyScriptableObject difficulty;
 
     UnityAction gameOverEventListener;
     UnityAction newGameListener;
+    UnityAction shopListener;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +27,9 @@ public class GameController : MonoBehaviour
 
         newGameListener = new UnityAction(NewGameTriggered);
         EventManager.StartListening("NewGame", newGameListener);
+
+        shopListener = new UnityAction(ShopTriggered);
+        EventManager.StartListening("ShopPressed", shopListener);
     }
 
     // Update is called once per frame
@@ -43,6 +49,8 @@ public class GameController : MonoBehaviour
         gameState.timeLeft = gameState.maxTime;
         gameState.coinCount = 0;
         gameState.gasLevel = 1;
+        gameState.cameraView = GameStateScriptableObject.CameraView.Game;
+        difficulty.Reset();
         player.NewGame();
         dynamicEnv.NewGame();
         staticEnv.NewGame();
@@ -50,8 +58,15 @@ public class GameController : MonoBehaviour
 
     public void MenuScreenTriggered()
     {
+        gameState.cameraView = GameStateScriptableObject.CameraView.MainMenu;
         player.NewGame();
         staticEnv.NewGame();
         dynamicEnv.Reset();
+        mainCamera.MoveToMenuPosn();
+    }
+
+    public void ShopTriggered()
+    {
+        gameState.cameraView = GameStateScriptableObject.CameraView.Shop;
     }
 }
