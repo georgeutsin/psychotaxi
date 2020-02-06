@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShopRow : MonoBehaviour
 {
-    public Text LevelText;
+    public TextMeshPro LevelText;
     public Button PlusButton;
     public Button MinusButton;
     public string UpgradeString;
