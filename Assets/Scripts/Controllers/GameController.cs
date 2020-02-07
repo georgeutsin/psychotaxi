@@ -69,4 +69,9 @@ public class GameController : MonoBehaviour
     {
         gameState.cameraView = GameStateScriptableObject.CameraView.Shop;
     }
+
+    public void ResetStats()
+    {
+        StateManager.ResetAllStats();
+    }
 }
