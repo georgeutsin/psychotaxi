@@ -9,6 +9,7 @@ public class Shop : MonoBehaviour
     public LevelDifficultyScriptableObject difficulty;
     public TextMeshProUGUI coinText;
     public ShopRow[] shopRows;
+    public ShopModelRow modelRow;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +18,12 @@ public class Shop : MonoBehaviour
 
     public void RefreshAllRows()
     {
-        foreach(ShopRow row in shopRows)
+        foreach (ShopRow row in shopRows)
         {
             row.SetRow();
         }
+        modelRow.SetRow();
+        SetCoinText();
     }
 
     void SetCoinText()
@@ -41,6 +44,7 @@ public class Shop : MonoBehaviour
     public int SetCurLevelToState(string upgradeType, int level)
     {
         StateManager.SetUpgradeLevel("Cur" + upgradeType, level);
+        PropagateState();
         return level;
     }
 
@@ -50,9 +54,20 @@ public class Shop : MonoBehaviour
         return level;
     }
 
+    public int GetSelectedModel()
+    {
+        return StateManager.GetUpgradeLevel("SelectedModel") - 1;
+    }
+    public int SetSelectedModel(int level)
+    {
+        level = StateManager.SetUpgradeLevel("SelectedModel", level + 1);
+        PropagateState();
+        return level;
+    }
+
     public int UpgradeCost(string upgradeType, int level)
     {
-        return 10;
+        return UpgradeCostUtil.GetCost(upgradeType, level, difficulty);
     }
 
     public int GetCurrentCoins()
@@ -74,5 +89,24 @@ public class Shop : MonoBehaviour
             SubtractCoins(cost);
             SetCoinText();
         }
+        SetCoinText();
+        RefreshAllRows();
+        PropagateState();
+    }
+
+    public void PropagateState()
+    {
+        gameState.UpdateMultipliers();
+    }
+    public void BackPressed()
+    {
+        SetModelAndMesh();   
+    }
+
+    public void SetModelAndMesh()
+    {
+        modelRow.ResetModelIdx();
+        modelRow.SetRow();
+        modelRow.SetMesh(GetSelectedModel());
     }
 }

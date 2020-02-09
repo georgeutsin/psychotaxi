@@ -16,5 +16,5 @@ MonoBehaviour:
   jumpSpeed: 0.2
   vehicleHeight: 0.01
   lateralSpeed: 0.2
-  maxAcceleration: 0.075
+  maxAcceleration: 0.05
   mass: 1

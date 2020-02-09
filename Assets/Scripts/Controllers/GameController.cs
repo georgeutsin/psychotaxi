@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
 
     public GameObject GameOverScreen;
+    public GameOverMenu gameOverMenu;
     public GameObject GameOverlayScreen;
     public GameStateScriptableObject gameState;
     public PlayerController player;
@@ -14,6 +15,7 @@ public class GameController : MonoBehaviour
     public DynamicEnvironmentController dynamicEnv;
     public StaticEnvironmentController staticEnv;
     public LevelDifficultyScriptableObject difficulty;
+    public Shop shop;
 
     UnityAction gameOverEventListener;
     UnityAction newGameListener;
@@ -30,6 +32,9 @@ public class GameController : MonoBehaviour
 
         shopListener = new UnityAction(ShopTriggered);
         EventManager.StartListening("ShopPressed", shopListener);
+
+        gameState.UpdateMultipliers();
+        shop.SetModelAndMesh();
     }
 
     // Update is called once per frame
@@ -42,6 +47,12 @@ public class GameController : MonoBehaviour
     {
         GameOverScreen.SetActive(true);
         GameOverlayScreen.SetActive(false);
+
+        int score = (int) (player.transform.position.x * 100);
+        int highScore = StateManager.SetHighScore(score);
+        int coins = gameState.coinCount;
+        int totalCoins = StateManager.AddCoins(coins);
+        gameOverMenu.UpdateText(score, highScore, coins, totalCoins);
     }
 
     void NewGameTriggered()
@@ -53,14 +64,12 @@ public class GameController : MonoBehaviour
         difficulty.Reset();
         player.NewGame();
         dynamicEnv.NewGame();
-        staticEnv.NewGame();
     }
 
     public void MenuScreenTriggered()
     {
         gameState.cameraView = GameStateScriptableObject.CameraView.MainMenu;
         player.NewGame();
-        staticEnv.NewGame();
         dynamicEnv.Reset();
         mainCamera.MoveToMenuPosn();
     }
@@ -73,5 +82,6 @@ public class GameController : MonoBehaviour
     public void ResetStats()
     {
         StateManager.ResetAllStats();
+        shop.SetModelAndMesh();
     }
 }

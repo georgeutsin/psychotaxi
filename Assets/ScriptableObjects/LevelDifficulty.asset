@@ -319,5 +319,77 @@ MonoBehaviour:
   - 19690.512
   - 20371.367
   - 21066.168
-  curLevel: 0
+  curLevel: 2
   gameProgressionMultiplier: 3
+  accelerationUpgradeMuliplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.827103
+      outSlope: 2.827103
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.024024338
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.03903028
+      outSlope: -0.03903028
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.024092138
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  bodyUpgradeMuliplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  efficiencyUpgradeMuliplierCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.1957932
+      outSlope: 2.1957932
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.018422296
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

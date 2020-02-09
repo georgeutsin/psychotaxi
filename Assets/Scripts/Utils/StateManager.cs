@@ -3,8 +3,8 @@
 public class StateManager : MonoBehaviour
 {
 
-    private static string highscoreString = "highscore";
-    private static string totalCoinsString = "totalCoins";
+    static string highscoreString = "highscore";
+    static string totalCoinsString = "totalCoins";
 
     private static StateManager stateManager;
 
@@ -36,20 +36,22 @@ public class StateManager : MonoBehaviour
 
     public static int GetHighScore()
     {
-        return PlayerPrefs.GetInt(highscoreString);
+        return PlayerPrefs.GetInt(highscoreString, 0);
     }
 
-    public static void SetHighScore(int score)
+    public static int SetHighScore(int score)
     {
         if (score > GetHighScore()){
             PlayerPrefs.SetInt(highscoreString, score);
             PlayerPrefs.Save();
         }
+
+        return GetHighScore();
     }
 
     public static int GetCoins()
     {
-        return PlayerPrefs.GetInt(totalCoinsString);
+        return PlayerPrefs.GetInt(totalCoinsString, 0);
     }
 
     public static int AddCoins(int coins)
@@ -76,15 +78,7 @@ public class StateManager : MonoBehaviour
 
     public static int GetUpgradeLevel(string upgrade)
     {
-        if (PlayerPrefs.HasKey(upgrade))
-        {
-            return PlayerPrefs.GetInt(upgrade);
-        }
-        else
-        {
-            SetUpgradeLevel(upgrade, 1);
-            return 1;
-        }
+        return PlayerPrefs.GetInt(upgrade, 1);
     }
 
     public static void ResetAllStats()

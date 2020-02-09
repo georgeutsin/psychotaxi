@@ -11,6 +11,9 @@ public class GameStateScriptableObject : ScriptableObject
     public bool isPaused = true;
     public CameraView cameraView;
 
+    public float accelerationMultiplier;
+    public float bodyMultiplier;
+    public float efficiencyMultiplier;
 
     public enum CameraView
     {
@@ -25,5 +28,27 @@ public class GameStateScriptableObject : ScriptableObject
         coinCount = 0;
         gasLevel = 1;
         cameraView = CameraView.MainMenu;
+        UpdateMultipliers();
+    }
+
+    public void UpdateMultipliers()
+    {
+        accelerationMultiplier = (float)(StateManager.GetUpgradeLevel("CurAcceleration") - 1) / 10.0f;
+        bodyMultiplier = (float)(StateManager.GetUpgradeLevel("CurBody") - 1) / 10.0f * 5.0f;
+        efficiencyMultiplier = (float)(StateManager.GetUpgradeLevel("CurEfficiency") - 1) / 10.0f;
+
+        if (StateManager.GetUpgradeLevel("SelectedModel") == 2) // Racer
+        {
+            accelerationMultiplier *= 3;
+        }
+
+        if (StateManager.GetUpgradeLevel("SelectedModel") == 3) // Truck
+        {
+            bodyMultiplier *= 3;
+        }
+
+        accelerationMultiplier += 1.0f;
+        bodyMultiplier += 1.0f;
+        efficiencyMultiplier += 1.0f;
     }
 }

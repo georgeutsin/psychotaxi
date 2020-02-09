@@ -30,6 +30,10 @@ public class LevelDifficultyScriptableObject : ScriptableObject
     public int curLevel;
     public float gameProgressionMultiplier = 3.0f;
 
+    public AnimationCurve accelerationUpgradeMuliplierCurve;
+    public AnimationCurve bodyUpgradeMuliplierCurve;
+    public AnimationCurve efficiencyUpgradeMuliplierCurve;
+
     void OnEnable()
     {
         levelDists[0] = 0;
