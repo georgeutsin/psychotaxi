@@ -19,7 +19,7 @@ public class ShopModelRow : MonoBehaviour
     {
         "Standard",
         "Racer",
-        "Truck",
+        "SUV",
     };
     public GameObject player;
     public GameObject[] meshes;

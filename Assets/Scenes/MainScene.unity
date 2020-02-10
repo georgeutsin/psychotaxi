@@ -2834,7 +2834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &309343547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3089,8 +3089,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2036226998}
   m_HandleRect: {fileID: 2036226997}
   m_Direction: 2
-  m_Value: 0.9999994
-  m_Size: 0.8193056
+  m_Value: 0.73261476
+  m_Size: 0.65075225
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7244,12 +7244,12 @@ MonoBehaviour:
   ModelTypes:
   - Standard
   - Racer
-  - Truck
+  - SUV
   player: {fileID: 1907639724731013949}
   meshes:
   - {fileID: 2529124144635542491, guid: e1808716ec03c4472a94958a995b8abd, type: 3}
-  - {fileID: 384242923746001012, guid: 3ac61cfc719714e6e85b3f7a1dd88910, type: 3}
-  - {fileID: 8816729120295721658, guid: caca19fe6f8ed4bdf843ce279be0c65a, type: 3}
+  - {fileID: 4213142494676074225, guid: 0c9764c8f72af4a329e1fc9db639d05e, type: 3}
+  - {fileID: 5841547527166145987, guid: 56ecf174a747546f7a546dbae4abc394, type: 3}
 --- !u!1 &978143769
 GameObject:
   m_ObjectHideFlags: 0
@@ -12691,8 +12691,8 @@ RectTransform:
   m_Father: {fileID: 1236482422}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.1806944}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.25586405}
+  m_AnchorMax: {x: 1, y: 0.90661633}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -16,7 +16,7 @@ public class UpgradeCostUtil
             case "Racer":
                 cost = 5000;
                 break;
-            case "Truck":
+            case "SUV":
                 cost = 5000;
                 break;
             case "Acceleration":

@@ -42,7 +42,7 @@ public class GameStateScriptableObject : ScriptableObject
             accelerationMultiplier *= 3;
         }
 
-        if (StateManager.GetUpgradeLevel("SelectedModel") == 3) // Truck
+        if (StateManager.GetUpgradeLevel("SelectedModel") == 3) // SUV
         {
             bodyMultiplier *= 3;
         }
