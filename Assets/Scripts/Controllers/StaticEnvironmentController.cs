@@ -8,16 +8,19 @@ public class StaticEnvironmentController : MonoBehaviour
     public GameObject roadSegment;
     public GameObject roadParent;
     public GameObject citySegment;
+    public GameObject beachSegment;
+    public GameObject surSegment;
+    public GameObject forestSegment;
     public GameObject sceneryParent;
     public RenderConfigScriptableObject config;
-
     StaticElementController roadCtl;
-    StaticElementController sceneCtl;
+    SceneryController sceneCtl;
 
     void Start()
     {
         roadCtl = new StaticElementController(roadSegment, roadParent.transform);
-        sceneCtl = new StaticElementController(citySegment, sceneryParent.transform, 0.995f, 2);
+        GameObject[] scenes = {citySegment, beachSegment, surSegment, forestSegment, surSegment};
+        sceneCtl = new SceneryController(scenes, sceneryParent.transform, 0.995f);
     }
 
     void Update()

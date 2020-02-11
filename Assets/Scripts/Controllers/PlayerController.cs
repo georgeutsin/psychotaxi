@@ -87,7 +87,9 @@ public class PlayerController : MonoBehaviour
 
         int level = difficulty.GetLevelFromDistance(rb.transform.position.x);
 
-        if (rb.velocity.x < difficulty.GetMaxSpeed(level))
+        float velocityMultiplier = gameState.accelerationMultiplier / 2.0f;
+        velocityMultiplier = velocityMultiplier < 1.0f ? 1.0f : velocityMultiplier;
+        if (rb.velocity.x < difficulty.GetMaxSpeed(level) * velocityMultiplier)
         {
             float acceleration = playerConfig.maxAcceleration * GetMass() * gameState.accelerationMultiplier;
             rb.AddForce(new Vector3(acceleration, 0, 0));
