@@ -4,30 +4,69 @@ using UnityEngine;
 
 public class SceneryController
 {
-    float sceneryLength = 0.995f;
-    float endPosn = -2f;
-    CircularObjectPool pool;
+    float segmentLength;
+    float internalStart = 0f;
+    float internalEnd = 0f;
+    List<GameObject> segments;
+    List<ObjectPool> pools;
 
-    public SceneryController(GameObject citySegment, Transform parent)
+    public SceneryController(GameObject[] scenes, Transform parent, float segmentLength)
     {
-        pool = new CircularObjectPool(citySegment, parent, 2);
+        this.segmentLength = segmentLength;
+        pools = new List<ObjectPool>();
+        foreach (GameObject scene in scenes)
+        {
+            pools.Add(new ObjectPool(scene, parent, 2));
+        }
+        segments = new List<GameObject>();
     }
 
-    public void RenderUntil(float targetPosn)
+    public void RenderFrom(float start, float end)
     {
-        while (endPosn < targetPosn)
+        AddSegmentsBetween(start, end);
+        RemoveSegmentsOutside(start, end);
+    }
+
+    void AddSegmentsBetween(float start, float end)
+    {
+        while (internalStart > start)
         {
-            GameObject o = pool.Next();
-            o.transform.position = new Vector3(endPosn, 0f, 0f);
-            endPosn += sceneryLength;
+            GameObject o = pools[GetPoolIdx(internalStart)].Next();
+            internalStart -= segmentLength;
+            o.transform.position = new Vector3(internalStart, 0f, 0f);
+            segments.Insert(0, o);
+        }
+
+        while (internalEnd < end)
+        {
+            GameObject o = pools[GetPoolIdx(internalEnd)].Next();
+            o.transform.position = new Vector3(internalEnd, 0f, 0f);
+            internalEnd += segmentLength;
+            segments.Add(o);
         }
     }
 
-    public void FreeUntil(float targetPosn)
+    void RemoveSegmentsOutside(float start, float end)
     {
-        while (pool.First().transform.position.x + 1f < targetPosn)
+        while(internalStart + segmentLength < start)
         {
-            pool.ReturnFirst();
+            pools[GetPoolIdx(internalStart + segmentLength)].Return(segments[0]);
+            segments.RemoveAt(0);
+            internalStart += segmentLength;
         }
+
+        while (internalEnd - segmentLength > end)
+        {
+            pools[GetPoolIdx(internalEnd  - segmentLength)].Return(segments[segments.Count - 1]);
+            segments.RemoveAt(segments.Count - 1);
+            internalEnd -= segmentLength;
+        }
+    }
+
+    int GetPoolIdx(float locn)
+    {
+        int c = pools.Count;
+        int p = (int) (locn / (segmentLength * 10.0f));
+        return p % c;
     }
 }

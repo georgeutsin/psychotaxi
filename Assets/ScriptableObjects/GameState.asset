@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: GameState
   m_EditorClassIdentifier: 
   coinCount: 0
-  timeLeft: 30
+  timeLeft: 29.231554
   maxTime: 30
+  nextGasLocation: 2.1765647
+  gasLevel: 1
+  isPaused: 1
+  cameraView: 0
+  accelerationMultiplier: 2.5
+  bodyMultiplier: 5
+  efficiencyMultiplier: 1.9

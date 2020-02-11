@@ -13,9 +13,9 @@ public class Obstacle : DynamicRoadObject
         explosionPool = explosionPoolGameObject.GetComponent<ExplosionPool>();
     }
 
-    void Update()
+    override public void Update()
     {
-        
+        base.Update();
     }
 
     override public void OnTriggerEnter(Collider other)
@@ -23,7 +23,6 @@ public class Obstacle : DynamicRoadObject
         if (other.tag == "GameBounds")
         {
             gameObject.SetActive(false);
-            ResetObject();
             return;
         }
 
@@ -36,8 +35,6 @@ public class Obstacle : DynamicRoadObject
                 ps.transform.position = transform.position;
                 ps.Play();
             }
-
-            ResetObject();
         }
     }
 

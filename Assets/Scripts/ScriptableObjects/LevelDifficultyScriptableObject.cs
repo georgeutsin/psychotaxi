@@ -23,10 +23,16 @@ public class LevelDifficultyScriptableObject : ScriptableObject
     public float coinSpawnProbability = 0.3f; // todo make this a curve
     public float gasSpawnProbability = 0.05f; // todo tweak to make this fun
     public float gasTimeAdded = 15f;
+    public float timeBetweenGas = 12f;
 
     public float[] levelDists;
     public float[] cumLevelDists;
     public int curLevel;
+    public float gameProgressionMultiplier = 3.0f;
+
+    public AnimationCurve accelerationUpgradeMuliplierCurve;
+    public AnimationCurve bodyUpgradeMuliplierCurve;
+    public AnimationCurve efficiencyUpgradeMuliplierCurve;
 
     void OnEnable()
     {
@@ -36,7 +42,7 @@ public class LevelDifficultyScriptableObject : ScriptableObject
         for (int i = 1; i < levelDists.Length; i++)
         {
             float d = GetMaxSpeed(i) * CurveUtil.NormalizedSample(levelLengthCurve, i, 1f, numberOfLevels, minLevelTime, maxLevelTime);
-            levelDists[i] = d;
+            levelDists[i] = d / gameProgressionMultiplier;
             cumLevelDists[i] = cumLevelDists[i - 1] + d;
         }
         curLevel = 0;
@@ -55,6 +61,11 @@ public class LevelDifficultyScriptableObject : ScriptableObject
         }
 
         return curLevel;
+    }
+
+    public void Reset()
+    {
+        curLevel = 0;
     }
 
     public float GetObstacleSeparation(int level)

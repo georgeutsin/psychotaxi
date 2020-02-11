@@ -26,9 +26,11 @@ public class RandomLevelGenerator : LevelGenerator
     {
         foreach (float lanePosn in renderConfig.lanePosns)
         {
-            if (Random.value < difficulty.gasSpawnProbability)
+            if (curPosn_LC > gameState.nextGasLocation)
             {
                 o = gasPool.Next();
+                UpdateGasLocation();
+                DynamicRoadObject.ResetObject(o);
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }
@@ -36,6 +38,7 @@ public class RandomLevelGenerator : LevelGenerator
             if (Random.value < difficulty.obstacleSpawnProbability)
             {
                 o = obstaclePool.Next();
+                DynamicRoadObject.ResetObject(o);
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }
@@ -43,6 +46,7 @@ public class RandomLevelGenerator : LevelGenerator
             if (Random.value < difficulty.coinSpawnProbability)
             {
                 o = coinPool.Next();
+                DynamicRoadObject.ResetObject(o);
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }

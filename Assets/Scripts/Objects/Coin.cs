@@ -9,8 +9,9 @@ public class Coin : DynamicRoadObject
         base.Start();
     }
 
-    void Update()
+    override public void Update()
     {
+        base.Update();
         transform.Rotate(Vector3.up * (rotationSpeed * Time.deltaTime));
     }
 }

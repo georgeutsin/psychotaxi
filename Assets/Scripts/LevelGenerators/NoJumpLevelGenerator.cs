@@ -24,7 +24,7 @@ public class NoJumpLevelGenerator : LevelGenerator
         }
     }
 
-    void SetObstacleLine(float levelOffset)
+    protected void SetObstacleLine(float levelOffset)
     {
         for (int i = 0; i < renderConfig.lanePosns.Length; i++)
         {
@@ -32,19 +32,23 @@ public class NoJumpLevelGenerator : LevelGenerator
 
             if (i == gapIdx)
             {
-                if (Random.value < difficulty.gasSpawnProbability)
+                if (curPosn_LC > gameState.nextGasLocation)
                 {
                     o = gasPool.Next();
+                    UpdateGasLocation();
+                    DynamicRoadObject.ResetObject(o);
                     o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                     continue;
                 }
 
                 o = coinPool.Next();
+                DynamicRoadObject.ResetObject(o);
                 o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
                 continue;
             }
 
             o = obstaclePool.Next();
+            DynamicRoadObject.ResetObject(o);
             o.transform.position = new Vector3(curPosn_LC + levelOffset, 0f, lanePosn);
         }
 

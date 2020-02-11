@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 174738899767060953}
   - component: {fileID: 174738899767060950}
   m_Layer: 0
-  m_Name: COIN
+  m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39f027f8cc70341279ef3e50514dfae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gs: {fileID: 11400000, guid: 548ba2b2ceb294722a786c1055cfc040, type: 2}
 --- !u!1001 &174738901003288521
 PrefabInstance:
   m_ObjectHideFlags: 0

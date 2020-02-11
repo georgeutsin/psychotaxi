@@ -8,29 +8,27 @@ public class StaticEnvironmentController : MonoBehaviour
     public GameObject roadSegment;
     public GameObject roadParent;
     public GameObject citySegment;
+    public GameObject beachSegment;
+    public GameObject surSegment;
+    public GameObject forestSegment;
     public GameObject sceneryParent;
-
-
     public RenderConfigScriptableObject config;
-
-    RoadController roadCtl;
+    StaticElementController roadCtl;
     SceneryController sceneCtl;
 
     void Start()
     {
-        roadCtl = new RoadController(roadSegment, roadParent.transform);
-        sceneCtl = new SceneryController(citySegment, sceneryParent.transform);
+        roadCtl = new StaticElementController(roadSegment, roadParent.transform);
+        GameObject[] scenes = {citySegment, beachSegment, surSegment, forestSegment, surSegment};
+        sceneCtl = new SceneryController(scenes, sceneryParent.transform, 0.995f);
     }
 
     void Update()
     {
-        float curPosn = playerTracker.transform.position.x;
-        float targetPosn = curPosn + config.renderDistance;
-
-        roadCtl.FreeUntil(curPosn - config.buffer);
-        roadCtl.RenderUntil(targetPosn + config.buffer);
-
-        sceneCtl.FreeUntil(curPosn - config.buffer);
-        sceneCtl.RenderUntil(targetPosn + config.buffer);
+        float start = playerTracker.transform.position.x - config.buffer;
+        float end = start + config.renderDistance + config.buffer;
+        
+        roadCtl.RenderFrom(start, end);
+        sceneCtl.RenderFrom(start, end);
     }
 }

@@ -18,8 +18,8 @@ MonoBehaviour:
   - 0.015
   - 0
   - -0.015
-  minFOV: 68
-  maxFOV: 88.96
+  minFOV: 64
+  maxFOV: 74.4
   fovSpeed: 20
   FOVCurve:
     serializedVersion: 2

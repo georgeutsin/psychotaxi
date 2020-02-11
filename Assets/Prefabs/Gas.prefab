@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4373781421876540880}
   - component: {fileID: 4373781421876540885}
   m_Layer: 0
-  m_Name: GAS
+  m_Name: Gas
   m_TagString: Gas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb37f95b382a343a4a1c31110c0f9c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gs: {fileID: 11400000, guid: 548ba2b2ceb294722a786c1055cfc040, type: 2}
 --- !u!1001 &8972715247027876312
 PrefabInstance:
   m_ObjectHideFlags: 0

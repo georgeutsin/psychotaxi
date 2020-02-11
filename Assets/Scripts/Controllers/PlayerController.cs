@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,20 +10,51 @@ public class PlayerController : MonoBehaviour
     public LevelDifficultyScriptableObject difficulty;
     public GameStateScriptableObject gameState;
 
+    UnityAction pauseListener;
+    UnityAction resumeListener;
+    Vector3 savedVelocity;
     int posIdx = 1;
     Rigidbody rb;
+
+
+    public void NewGame()
+    {
+        transform.rotation = Quaternion.identity;
+        transform.position = Vector3.zero;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        posIdx = 1;
+        rb.mass = GetMass();
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.mass = playerConfig.mass; // todo: think about mass lifecycle
+        rb.mass = GetMass();
 
-        gameState.timeLeft = 30f; // todo put this in a game controller/reset function?
-        gameState.coinCount = 0;
+        NewGame();
+        pauseListener = new UnityAction(PauseEvent);
+        EventManager.StartListening("GamePaused", pauseListener);
+
+        resumeListener = new UnityAction(ResumeEvent);
+        EventManager.StartListening("GameResumed", resumeListener);
     }
 
     void Update()
     {
+        if (gameState.isPaused)
+        {
+            return;
+        }
+
+        if (gameState.timeLeft <= 0)
+        {
+            EventManager.TriggerEvent("GameOver");
+            gameState.isPaused = true;
+            rb.AddForce(new Vector3(-10f * playerConfig.maxAcceleration, 0, 0));
+            return;
+        }
+
         if (Input.GetKeyDown("up"))
         {
             Jump();
@@ -41,18 +73,33 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (gameState.isPaused)
+        {
+            return;
+        }
+
+        if (gameState.timeLeft <= 0)
+        {
+            EventManager.TriggerEvent("GameOver");
+            gameState.isPaused = true;
+            return;
+        }
+
         int level = difficulty.GetLevelFromDistance(rb.transform.position.x);
 
-        if (rb.velocity.x < difficulty.GetMaxSpeed(level))
+        float velocityMultiplier = gameState.accelerationMultiplier / 2.0f;
+        velocityMultiplier = velocityMultiplier < 1.0f ? 1.0f : velocityMultiplier;
+        if (rb.velocity.x < difficulty.GetMaxSpeed(level) * velocityMultiplier)
         {
-            rb.AddForce(new Vector3(playerConfig.maxAcceleration, 0, 0));
+            float acceleration = playerConfig.maxAcceleration * GetMass() * gameState.accelerationMultiplier;
+            rb.AddForce(new Vector3(acceleration, 0, 0));
         }
 
         float step = playerConfig.lateralSpeed * Time.deltaTime;
         Vector3 target = new Vector3(transform.position.x, transform.position.y, renderConfig.lanePosns[posIdx]);
         transform.position = Vector3.MoveTowards(transform.position, target, step);
 
-        gameState.timeLeft -= Time.deltaTime;
+        gameState.timeLeft -= Time.deltaTime / gameState.efficiencyMultiplier;
     }
 
     public void Left()
@@ -88,5 +135,21 @@ public class PlayerController : MonoBehaviour
             other.gameObject.SetActive(false);
             return;
         }
+    }
+
+    void PauseEvent()
+    {
+        savedVelocity = rb.velocity;
+        rb.velocity = Vector3.zero;
+    }
+
+    void ResumeEvent()
+    {
+        rb.velocity = savedVelocity;
+    }
+
+    float GetMass()
+    {
+        return playerConfig.mass * gameState.bodyMultiplier;
     }
 }
