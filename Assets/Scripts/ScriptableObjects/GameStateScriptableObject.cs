@@ -12,6 +12,7 @@ public class GameStateScriptableObject : ScriptableObject
     public CameraView cameraView;
 
     public float accelerationMultiplier;
+    public float velocityMultiplier;
     public float bodyMultiplier;
     public float efficiencyMultiplier;
 
@@ -35,7 +36,7 @@ public class GameStateScriptableObject : ScriptableObject
     {
         accelerationMultiplier = (float)(StateManager.GetUpgradeLevel("CurAcceleration") - 1) / 10.0f;
         bodyMultiplier = (float)(StateManager.GetUpgradeLevel("CurBody") - 1) / 10.0f * 5.0f;
-        efficiencyMultiplier = (float)(StateManager.GetUpgradeLevel("CurEfficiency") - 1) / 10.0f;
+        efficiencyMultiplier = (float)(StateManager.GetUpgradeLevel("CurEfficiency") - 1) / 100.0f;
 
         if (StateManager.GetUpgradeLevel("SelectedModel") == 2) // Racer
         {
@@ -50,5 +51,8 @@ public class GameStateScriptableObject : ScriptableObject
         accelerationMultiplier += 1.0f;
         bodyMultiplier += 1.0f;
         efficiencyMultiplier += 1.0f;
+
+        velocityMultiplier = accelerationMultiplier / 2.0f;
+        velocityMultiplier = velocityMultiplier < 1.0f ? 1.0f : velocityMultiplier;
     }
 }
