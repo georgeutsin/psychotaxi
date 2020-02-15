@@ -5,6 +5,7 @@ using UnityEngine;
 public class SwipeDetector : MonoBehaviour
 {
     public GameObject player;
+    public GameStateScriptableObject gameState;
     public float SWIPE_THRESHOLD = 20f;
 
     Vector2 fingerDown;
@@ -108,6 +109,10 @@ public class SwipeDetector : MonoBehaviour
     void OnSwipeUp()
     {
         //Debug.Log("Swipe UP");
+        if (gameState.isPaused)
+        {
+            return;
+        }
         pc.Jump();
     }
 
@@ -119,12 +124,20 @@ public class SwipeDetector : MonoBehaviour
     void OnSwipeLeft()
     {
         //Debug.Log("Swipe Left");
+        if (gameState.isPaused)
+        {
+            return;
+        }
         pc.Left();
     }
 
     void OnSwipeRight()
     {
         //Debug.Log("Swipe Right");
+        if (gameState.isPaused)
+        {
+            return;
+        }
         pc.Right();
     }
 }

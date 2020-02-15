@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
         shopListener = new UnityAction(ShopTriggered);
         EventManager.StartListening("ShopPressed", shopListener);
 
+        gameOverMenu.HideButtons();
+
         gameState.UpdateMultipliers();
         shop.SetModelAndMesh();
     }
@@ -45,14 +47,22 @@ public class GameController : MonoBehaviour
 
     void GameOverTriggered()
     {
-        GameOverScreen.SetActive(true);
         GameOverlayScreen.SetActive(false);
-
         int score = (int) (player.transform.position.x * 100);
         int highScore = StateManager.SetHighScore(score);
         int coins = gameState.coinCount;
         int totalCoins = StateManager.AddCoins(coins);
         gameOverMenu.UpdateText(score, highScore, coins, totalCoins);
+
+        StartCoroutine(WaitGameOver(GameOverScreen, gameOverMenu));
+    }
+
+    IEnumerator WaitGameOver(GameObject GameOverScreen, GameOverMenu gameOverMenu)
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameOverScreen.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        gameOverMenu.ShowButtons();
     }
 
     void NewGameTriggered()

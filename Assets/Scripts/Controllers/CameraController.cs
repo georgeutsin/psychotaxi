@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     public static Vector3 mainMenuPosn = new Vector3(0.0183f, 0.0496f, -0.0443f);
     public static Vector3 mainMenuRotn = new Vector3(52.388f, -23.645f, 0f);
     public static Vector3 shopPosn = new Vector3(0.0336f, 0.0249f, -0.0443f);
-    public static Vector3 shopRotn = new Vector3(0f, -35.881f, 0f);
+    public static Vector3 shopRotn = new Vector3(2.57f, -35.881f, 0f);
 
     Camera cam;
     PlayerTracker player;
@@ -27,13 +27,18 @@ public class CameraController : MonoBehaviour
     Vector2 current;
     Vector2 result;
 
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     void Start()
     {
         cam = GetComponent<Camera>();
         player = playerTracker.GetComponent<PlayerTracker>();
 
         editorOnly.SetActive(false);
-        Application.targetFrameRate = 60;
+
 
         foreach (GameObject menu in Menus)
         {
@@ -44,13 +49,15 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate()
     {
+        //Debug.Log(Application.targetFrameRate);
         if (gameState.cameraView == GameStateScriptableObject.CameraView.Game)
         {
             RotateTo(gameRotn);
             if (Mathf.Abs(transform.rotation.eulerAngles.y - gameRotn.y) > 3f)
             {
                 MoveTo(gamePosn + playerTracker.transform.position);
-            } else 
+            }
+            else
             {
                 SetPositionTo(gamePosn + playerTracker.transform.position);
             }
