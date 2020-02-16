@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 public class GameController : MonoBehaviour
 {
@@ -21,9 +22,12 @@ public class GameController : MonoBehaviour
     UnityAction newGameListener;
     UnityAction shopListener;
 
+    bool shouldShowDoubleButton;
+
     // Start is called before the first frame update
     void Start()
     {
+        shouldShowDoubleButton = false;
         gameOverEventListener = new UnityAction(GameOverTriggered);
         EventManager.StartListening("GameOver", gameOverEventListener);
 
@@ -59,10 +63,30 @@ public class GameController : MonoBehaviour
 
     IEnumerator WaitGameOver(GameObject GameOverScreen, GameOverMenu gameOverMenu)
     {
+        Coroutine req = StartCoroutine(GetRequest("https://tagbull-prod.appspot.com/activities/available"));
         yield return new WaitForSeconds(0.5f);
         GameOverScreen.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-        gameOverMenu.ShowButtons();
+        yield return req;
+        gameOverMenu.ShowButtons(shouldShowDoubleButton);
+    }
+
+    IEnumerator GetRequest(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+            string res = webRequest.downloadHandler.text;
+            if (res == "{\"data\":true}")
+            {
+                shouldShowDoubleButton = true;
+            }
+            else
+            {
+                shouldShowDoubleButton = false;
+            }
+        }
     }
 
     void NewGameTriggered()
