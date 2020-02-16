@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e53cc713ca54b4b8af4ddafcff25cd, type: 3}
   m_Name: GameState
   m_EditorClassIdentifier: 
-  coinCount: 4
-  timeLeft: -0.019995797
+  coinCount: 0
+  timeLeft: -0.019997705
   maxTime: 30
-  nextGasLocation: 4.8593717
-  gasLevel: 5
+  nextGasLocation: 2.1765647
+  gasLevel: 1
   isPaused: 1
-  cameraView: 2
+  cameraView: 0
   accelerationMultiplier: 1
+  velocityMultiplier: 1
   bodyMultiplier: 1
   efficiencyMultiplier: 1
