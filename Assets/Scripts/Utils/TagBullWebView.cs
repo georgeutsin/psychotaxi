@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#pragma warning disable 0618
+using System.Collections;
 using UnityEngine;
 
 public class TagBullWebView : MonoBehaviour
@@ -6,7 +7,7 @@ public class TagBullWebView : MonoBehaviour
     public string Url;
     GameObject webViewContainer;
     WebViewObject webViewObject;
-    public GameOverMenu root;
+    public TagBullRewardButton root;
 
     public IEnumerator Create()
     {

@@ -15,6 +15,7 @@ public class GameStateScriptableObject : ScriptableObject
     public float velocityMultiplier;
     public float bodyMultiplier;
     public float efficiencyMultiplier;
+    public bool showUnityAds;
 
     public enum CameraView
     {
