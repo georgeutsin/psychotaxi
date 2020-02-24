@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 0
   companyName: George Utsin
-  productName: Pyscho Taxi
+  productName: Psycho Taxi
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.9607844, g: 0.9490197, b: 0, a: 1}
@@ -122,7 +122,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 2.0.4
+  bundleVersion: 2.0.5
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -168,7 +168,7 @@ PlayerSettings:
   applicationIdentifier:
     iPhone: com.georgeutsin.psychotaxi
   buildNumber:
-    iPhone: 12
+    iPhone: 13
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
