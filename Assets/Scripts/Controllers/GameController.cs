@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿#pragma warning disable 0436
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
+using UnityEngine.Analytics;
+using Unity.RemoteConfig;
 
 public class GameController : MonoBehaviour
 {
@@ -22,12 +25,28 @@ public class GameController : MonoBehaviour
     UnityAction newGameListener;
     UnityAction shopListener;
 
-    bool shouldShowDoubleButton;
+    bool tagbullActivitiesAvailable;
 
+    public struct userAttributes { }
+
+    // Optionally declare variables for any custom app attributes:
+    public struct appAttributes { }
+
+    void Awake()
+    {
+         // Add a listener to apply settings when successfully retrieved: 
+        ConfigManager.FetchCompleted += ApplyRemoteSettings;
+
+        // Set the user’s unique ID:
+        ConfigManager.SetCustomUserID(SystemInfo.deviceUniqueIdentifier);
+
+        // Fetch configuration setting from the remote service: 
+        ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
+    }
     // Start is called before the first frame update
     void Start()
     {
-        shouldShowDoubleButton = false;
+        tagbullActivitiesAvailable = false;
         gameOverEventListener = new UnityAction(GameOverTriggered);
         EventManager.StartListening("GameOver", gameOverEventListener);
 
@@ -41,6 +60,23 @@ public class GameController : MonoBehaviour
 
         gameState.UpdateMultipliers();
         shop.SetModelAndMesh();
+    }
+
+    void ApplyRemoteSettings (ConfigResponse configResponse) {
+        // Conditionally update settings, depending on the response's origin:
+        switch (configResponse.requestOrigin) {
+            case ConfigOrigin.Default:
+                Debug.Log ("No settings loaded this session; using default values.");
+                break;
+            case ConfigOrigin.Cached:
+                Debug.Log ("No settings loaded this session; using cached values from a previous session.");
+                break;
+            case ConfigOrigin.Remote:
+                Debug.Log ("New settings loaded this session; update values accordingly.");
+                gameState.showUnityAds = ConfigManager.appConfig.GetBool ("SHOW_UNITY_ADS");
+                break;
+        }
+        Debug.Log("show unity ads: " + gameState.showUnityAds);
     }
 
     // Update is called once per frame
@@ -63,12 +99,13 @@ public class GameController : MonoBehaviour
 
     IEnumerator WaitGameOver(GameObject GameOverScreen, GameOverMenu gameOverMenu)
     {
+        AnalyticsEvent.GameOver();
         Coroutine req = StartCoroutine(GetRequest("https://tagbull-prod.appspot.com/activities/available"));
         yield return new WaitForSeconds(0.5f);
         GameOverScreen.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         yield return req;
-        gameOverMenu.ShowButtons(shouldShowDoubleButton);
+        gameOverMenu.ShowButtons(tagbullActivitiesAvailable, gameState.showUnityAds);
     }
 
     IEnumerator GetRequest(string uri)
@@ -80,17 +117,20 @@ public class GameController : MonoBehaviour
             string res = webRequest.downloadHandler.text;
             if (res == "{\"data\":true}")
             {
-                shouldShowDoubleButton = true;
+                AnalyticsEvent.ScreenVisit("TagBullOffer");
+                tagbullActivitiesAvailable = true;
             }
             else
             {
-                shouldShowDoubleButton = false;
+                tagbullActivitiesAvailable = false;
             }
         }
     }
 
     void NewGameTriggered()
     {
+        ConfigManager.FetchConfigs<userAttributes, appAttributes>(new userAttributes(), new appAttributes());
+        AnalyticsEvent.GameStart();
         gameState.timeLeft = gameState.maxTime;
         gameState.coinCount = 0;
         gameState.gasLevel = 1;
@@ -102,6 +142,7 @@ public class GameController : MonoBehaviour
 
     public void MenuScreenTriggered()
     {
+        AnalyticsEvent.ScreenVisit("MainMenu");
         gameState.cameraView = GameStateScriptableObject.CameraView.MainMenu;
         player.NewGame();
         dynamicEnv.Reset();
@@ -110,6 +151,7 @@ public class GameController : MonoBehaviour
 
     public void ShopTriggered()
     {
+        AnalyticsEvent.ScreenVisit("Shop");
         gameState.cameraView = GameStateScriptableObject.CameraView.Shop;
     }
 

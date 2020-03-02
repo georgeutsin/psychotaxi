@@ -19,7 +19,14 @@ public class StaticEnvironmentController : MonoBehaviour
     void Start()
     {
         roadCtl = new StaticElementController(roadSegment, roadParent.transform);
-        GameObject[] scenes = {citySegment, beachSegment, surSegment, forestSegment, surSegment};
+        GameObject[] scenes = {
+            citySegment,
+            beachSegment, beachSegment,  beachSegment,
+            surSegment, surSegment, surSegment, surSegment,
+            forestSegment, forestSegment, forestSegment, forestSegment,
+            surSegment, surSegment, surSegment,
+            citySegment, citySegment, citySegment,
+            };
         sceneCtl = new SceneryController(scenes, sceneryParent.transform, 0.995f);
     }
 
@@ -27,7 +34,7 @@ public class StaticEnvironmentController : MonoBehaviour
     {
         float start = playerTracker.transform.position.x - config.buffer;
         float end = start + config.renderDistance + config.buffer;
-        
+
         roadCtl.RenderFrom(start, end);
         sceneCtl.RenderFrom(start, end);
     }
