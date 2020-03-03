@@ -26,6 +26,7 @@ public class GameController : MonoBehaviour
     UnityAction shopListener;
 
     bool tagbullActivitiesAvailable;
+    bool isGameRunning;
 
     public struct userAttributes { }
 
@@ -66,27 +67,30 @@ public class GameController : MonoBehaviour
         // Conditionally update settings, depending on the response's origin:
         switch (configResponse.requestOrigin) {
             case ConfigOrigin.Default:
-                Debug.Log ("No settings loaded this session; using default values.");
+                // Debug.Log ("No settings loaded this session; using default values.");
                 break;
             case ConfigOrigin.Cached:
-                Debug.Log ("No settings loaded this session; using cached values from a previous session.");
+                // Debug.Log ("No settings loaded this session; using cached values from a previous session.");
                 break;
             case ConfigOrigin.Remote:
-                Debug.Log ("New settings loaded this session; update values accordingly.");
+                // Debug.Log ("New settings loaded this session; update values accordingly.");
                 gameState.showUnityAds = ConfigManager.appConfig.GetBool ("SHOW_UNITY_ADS");
                 break;
         }
-        Debug.Log("show unity ads: " + gameState.showUnityAds);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isGameRunning)
+        {
+            dynamicEnv.CustomUpdate(player.transform.position.x);
+        }
     }
 
     void GameOverTriggered()
     {
+        isGameRunning = false;
         GameOverlayScreen.SetActive(false);
         int score = (int) (player.transform.position.x * 100);
         int highScore = StateManager.SetHighScore(score);
@@ -138,6 +142,7 @@ public class GameController : MonoBehaviour
         difficulty.Reset();
         player.NewGame();
         dynamicEnv.NewGame();
+        isGameRunning = true;
     }
 
     public void MenuScreenTriggered()

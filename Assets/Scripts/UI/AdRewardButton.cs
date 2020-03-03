@@ -8,11 +8,10 @@ public class AdRewardButton : MonoBehaviour
     float sliderBGLeft;
     public Slider bgSlider;
     string myPlacementId = "rewardedVideo";
-    Button myButton;
+    public Button myButton;
 
     void Start()
     {
-        myButton = GetComponent<Button>();
         // Map the ShowRewardedVideo function to the button’s click listener:
         if (myButton) myButton.onClick.AddListener(ShowRewardedVideo);
     }

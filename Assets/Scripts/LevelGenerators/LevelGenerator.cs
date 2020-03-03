@@ -8,7 +8,7 @@ public class LevelGenerator
     protected RenderConfigScriptableObject renderConfig;
     protected GameStateScriptableObject gameState;
 
-    protected float curPosn_LC;
+    public float curPosn_LC;
     protected MixedObjectPool obstaclePool;
     protected ObjectPool coinPool;
     protected ObjectPool gasPool;
@@ -29,7 +29,7 @@ public class LevelGenerator
         this.difficulty = difficulty;
         this.renderConfig = renderConfig;
         this.gameState = gameState;
-        curPosn_LC = 0f;
+        curPosn_LC = 0.2f;
     }
 
     public LevelGenerator(LevelGenerator source)
@@ -52,6 +52,7 @@ public class LevelGenerator
         coinPool.ResetPool();
         gasPool.ResetPool();
         obstaclePool.ResetPool();
+        curPosn_LC = 0.2f;
     }
 
     virtual public void RenderUntil(float levelOffset, float targetPosn_GC)
