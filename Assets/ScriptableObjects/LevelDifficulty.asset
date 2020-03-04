@@ -40,7 +40,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  baseSpeed: 0.16
+  baseSpeed: 0.18
   maxSpeedMultiplier: 4.7
   levelSpeedMuliplierCurve:
     serializedVersion: 2
@@ -319,8 +319,8 @@ MonoBehaviour:
   - 25749.18
   - 26633.477
   - 27535.877
-  curLevel: 0
-  gameProgressionMultiplier: 5
+  curLevel: 2
+  gameProgressionMultiplier: 7
   accelerationUpgradeMuliplierCurve:
     serializedVersion: 2
     m_Curve:
