@@ -37,7 +37,7 @@ public class GameStateScriptableObject : ScriptableObject
     {
         accelerationMultiplier = (float)(StateManager.GetUpgradeLevel("CurAcceleration") - 1) / 10.0f;
         bodyMultiplier = (float)(StateManager.GetUpgradeLevel("CurBody") - 1) / 10.0f * 5.0f;
-        efficiencyMultiplier = (float)(StateManager.GetUpgradeLevel("CurEfficiency") - 1) / 100.0f;
+        efficiencyMultiplier = (float)(StateManager.GetUpgradeLevel("CurEfficiency") - 1) / 30.0f;
 
         if (StateManager.GetUpgradeLevel("SelectedModel") == 2) // Racer
         {

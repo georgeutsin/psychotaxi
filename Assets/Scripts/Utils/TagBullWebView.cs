@@ -43,10 +43,6 @@ public class TagBullWebView : MonoBehaviour
             {
                 Debug.Log(string.Format("CallOnLoaded[{0}]", msg));
 #if UNITY_EDITOR_OSX || !UNITY_ANDROID
-                // NOTE: depending on the situation, you might prefer
-                // the 'iframe' approach.
-                // cf. https://github.com/gree/unity-webview/issues/189
-#if true
                 webViewObject.EvaluateJS(@"
                   if (window && window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.unityControl) {
                     window.Unity = {
@@ -62,27 +58,6 @@ public class TagBullWebView : MonoBehaviour
                     }
                   }
                 ");
-#else
-                webViewObject.EvaluateJS(@"
-                  if (window && window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.unityControl) {
-                    window.Unity = {
-                      call: function(msg) {
-                        window.webkit.messageHandlers.unityControl.postMessage(msg);
-                      }
-                    }
-                  } else {
-                    window.Unity = {
-                      call: function(msg) {
-                        var iframe = document.createElement('IFRAME');
-                        iframe.setAttribute('src', 'unity:' + msg);
-                        document.documentElement.appendChild(iframe);
-                        iframe.parentNode.removeChild(iframe);
-                        iframe = null;
-                      }
-                    }
-                  }
-                ");
-#endif
 #endif
                 webViewObject.EvaluateJS(@"
                     Unity.call('ua=' + navigator.userAgent);
@@ -100,7 +75,12 @@ public class TagBullWebView : MonoBehaviour
 #if !UNITY_WEBPLAYER
         if (Url.StartsWith("http"))
         {
-            webViewObject.LoadURL(Url.Replace(" ", "%20"));
+#if UNITY_ANDROID
+            var d_url = Url + "?device_id=unity_android-" + SystemInfo.deviceUniqueIdentifier;
+#else
+            var d_url = Url + "?device_id=unity_ios-" + SystemInfo.deviceUniqueIdentifier;
+#endif
+            webViewObject.LoadURL(d_url.Replace(" ", "%20"));
         }
         else
         {
@@ -135,7 +115,8 @@ public class TagBullWebView : MonoBehaviour
         }
 #else
         if (Url.StartsWith("http")) {
-            webViewObject.LoadURL(Url.Replace(" ", "%20"));
+            var d_url = Url + "?device_id=unity_web-" + SystemInfo.deviceUniqueIdentifier;
+            webViewObject.LoadURL(d_url.Replace(" ", "%20"));
         } else {
             webViewObject.LoadURL("StreamingAssets/" + Url.Replace(" ", "%20"));
         }

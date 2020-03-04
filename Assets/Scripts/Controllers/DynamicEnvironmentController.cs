@@ -22,7 +22,6 @@ public class DynamicEnvironmentController : MonoBehaviour
 
     float levelOffset;
     float obsSpeed = DynamicRoadObject.obstacleSpeed;
-    float curPosn_GC;
     float targetPosn_LC;
     float targetPosn_GC;
 
@@ -32,50 +31,53 @@ public class DynamicEnvironmentController : MonoBehaviour
 
     public void NewGame()
     {
-        levelOffset = 0f;
-        curPosn_GC = 0f;
-        levelSegmentBoundary = 0f;
-        gameState.nextGasLocation = 0f;
-        gameState.gasLevel = 1;
-        GasLocationUtil.SetNextGasLocation(gameState, difficulty);
-
-        PickLevelGenerator(initialLevelDelayLength);
-        curGenerator.Reset();
+        Reset();
         curGenerator.RenderUntil(0, config.renderDistance + config.buffer);
         levelSegmentBoundary += levelSegmentLength;
     }
 
     public void Reset()
     {
-        curGenerator.Reset();
+        foreach (var generator in levelGenerators)
+        {
+            generator.Reset();
+        }
+        levelOffset = 0f;
+        levelSegmentBoundary = 0f;
+        gameState.nextGasLocation = 0.2f;
+        // GasLocationUtil.SetNextGasLocation(gameState, difficulty);
+
+        gameState.gasLevel = 1;
+
+        PickLevelGenerator(initialLevelDelayLength);
     }
 
     void Start()
     {
         LevelGenerator source = new LevelGenerator(
             obstacles,
-            obstacleParent.transform, 
-            coin, 
-            gas, 
-            itemsParent.transform, 
-            difficulty, 
+            obstacleParent.transform,
+            coin,
+            gas,
+            itemsParent.transform,
+            difficulty,
             config,
             gameState);
 
         levelGenerators.Add(new RandomLevelGenerator(source));
         levelGenerators.Add(new NoJumpLevelGenerator(source));
+        Reset();
     }
 
-    void Update()
+    public void CustomUpdate(float curPosn_GC)
     {
         levelOffset += Time.deltaTime * obsSpeed;
-        curPosn_GC = playerTracker.transform.position.x;
         targetPosn_GC = curPosn_GC + config.renderDistance + config.buffer;
         targetPosn_LC = targetPosn_GC - levelOffset;
 
         if (targetPosn_LC > levelSegmentBoundary)
         {
-            PickLevelGenerator(targetPosn_LC);
+            PickLevelGenerator(curGenerator.curPosn_LC);
             levelSegmentBoundary += levelSegmentLength;
         }
 

@@ -12,10 +12,9 @@ public class TagBullRewardButton : MonoBehaviour
     public GameObject loadingScreen;
     public GameOverMenu GameOverMenu;
 
-    Button myButton;
+    public Button myButton;
     void Start()
     {
-        myButton = GetComponent<Button>();
         if (myButton) myButton.onClick.AddListener(ShowTagBullActivity);
     }
     void Update()

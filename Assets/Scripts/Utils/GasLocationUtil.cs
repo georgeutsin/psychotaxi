@@ -12,7 +12,6 @@ public class GasLocationUtil
         {
             float timeSpentInLevel = difficulty.cumLevelDists[gameState.gasLevel] - gameState.nextGasLocation;
             gameState.nextGasLocation += Mathf.Min(timeLeft, timeSpentInLevel) * difficulty.GetMaxSpeed(gameState.gasLevel);
-
             if (timeSpentInLevel < timeLeft)
             {
                 gameState.gasLevel += 1;

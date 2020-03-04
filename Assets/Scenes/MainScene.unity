@@ -3111,6 +3111,7 @@ MonoBehaviour:
   webview: {fileID: 732675127}
   loadingScreen: {fileID: 1543922233}
   GameOverMenu: {fileID: 219144703}
+  myButton: {fileID: 309343549}
 --- !u!1 &324849315
 GameObject:
   m_ObjectHideFlags: 0
@@ -5242,7 +5243,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: NaN, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -8696,6 +8697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgSlider: {fileID: 1064726066}
+  myButton: {fileID: 1110255796}
 --- !u!1 &1141231368
 GameObject:
   m_ObjectHideFlags: 0
