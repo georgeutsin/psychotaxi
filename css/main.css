@@ -1,0 +1,67 @@
+html, body {
+  height: 99%;
+  margin: 0;
+  color: black;
+  font-family: 'Roboto', sans-serif;
+  background-color: rgb(255, 251, 0);
+}
+
+.logo {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+a:link {
+  color: black;
+}
+
+.bg-base {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 251, 0);
+}
+
+.car {
+  background-image: url('../images/car.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.actions {
+  width: 135px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.half {
+  display: inline-block;
+  width: 49%;
+  position: relative;
+  height: 100%;
+  text-align: center;
+}
+
+.actions {
+  width: inherit;
+}
+
+@media only screen and (max-width: 980px) {
+  .half {
+    display: block;
+    width: 100%;
+    height: 50%;
+  }
+  .bottom_half {
+    top: 10%;
+    left: 10%;
+    -webkit-transform: translate(-10%, -50%);
+    transform: translate(-10%, -50%);
+  }
+}
